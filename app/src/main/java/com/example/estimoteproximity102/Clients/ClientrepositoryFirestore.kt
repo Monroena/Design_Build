@@ -1,9 +1,9 @@
-package com.example.estimoteproximity102.Clients
+/*package com.example.estimoteproximity102.Clients
 
 import android.util.Log
 import androidx.compose.runtime.toMutableStateList
 import com.example.estimoteproximity102.Staff.Staff
-import com.example.estimoteproximity102.StaffRepository
+import com.example.estimoteproximity102.StaffService.StaffRepository
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ClientRepositoryFirestore: ClientRepository {
@@ -38,3 +38,6 @@ class ClientRepositoryFirestore: ClientRepository {
         TODO("Not yet implemented")
     }
 }
+
+
+ */

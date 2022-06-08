@@ -17,20 +17,11 @@ import androidx.compose.ui.unit.sp
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
-import com.example.estimoteproximity102.CloudCredentials.APP_ID
-import com.example.estimoteproximity102.CloudCredentials.APP_TOKEN
+import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_ID
+import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_TOKEN
+import com.example.estimoteproximity102.Beacons.ZoneEventViewModel
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
-import com.example.estimoteproximity102.StaffScreen
 //import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
-
-
-
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-
 
 
 //import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme

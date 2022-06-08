@@ -1,4 +1,4 @@
-package com.example.estimoteproximity102
+package com.example.estimoteproximity102.Beacons
 
 object CloudCredentials {
     const val APP_ID = "infopatients-5mv"

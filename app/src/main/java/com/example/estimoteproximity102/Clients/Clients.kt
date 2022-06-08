@@ -1,4 +1,4 @@
-package com.example.estimoteproximity102.Clients
+/*package com.example.estimoteproximity102.Clients
 
 data class Clients (
 
@@ -9,3 +9,5 @@ data class Clients (
     var zipCode: String?=null,
     var profession: String? = null
 )
+
+ */

@@ -1,4 +1,4 @@
-package com.example.estimoteproximity102.Clients
+/*package com.example.estimoteproximity102.Clients
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -38,3 +38,5 @@ class ClientCard {
         }
     }
 }
+
+ */

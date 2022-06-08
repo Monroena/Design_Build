@@ -1,4 +1,4 @@
-package com.example.estimoteproximity102
+package com.example.estimoteproximity102.Staff
 
 import com.example.estimoteproximity102.Staff.Staff
 
