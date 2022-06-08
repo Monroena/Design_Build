@@ -1,5 +1,7 @@
 package com.example.estimoteproximity102
 
+import com.example.estimoteproximity102.Staff.Staff
+
 object StaffData {
     val staffSample = listOf(
         Staff(

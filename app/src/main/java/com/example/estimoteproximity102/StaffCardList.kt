@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.example.estimoteproximity102.Staff.Staff
 import dtu.engtech.iabr.stateincompose.core.Constants
 
 @Composable

@@ -1,13 +1,12 @@
 package com.example.estimoteproximity102
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.estimoteproximity102.Staff.Staff
 
 @Composable
 fun StaffCard(
@@ -30,7 +29,7 @@ fun StaffCard(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = staff?.address ?: "",
+                text = staff?.profession ?: "",
                 modifier = Modifier.padding(all = 4.dp),
                 style = MaterialTheme.typography.body2
             )

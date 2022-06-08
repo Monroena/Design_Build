@@ -2,6 +2,7 @@ package com.example.estimoteproximity102
 
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
+import com.example.estimoteproximity102.Staff.Staff
 
 
 class StaffViewModel : ViewModel() {
