@@ -13,14 +13,7 @@ fun ClientCard(
     modifier: Modifier = Modifier
 ) {
     Row(modifier = Modifier.padding(all = 8.dp)) {
-       /* Image(
-            painter = painterResource((R.drawable.dtu_logo)),
-            contentDescription = "Staff profile picture",
-            modifier = Modifier
-                .size(50.dp)
-        )
 
-        */
         Spacer(modifier = Modifier.width(8.dp))
         Column() {
             Text(
@@ -28,7 +21,7 @@ fun ClientCard(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = clients?.adress ?: "",
+                text = clients?.address ?: "",
                 modifier = Modifier.padding(all = 4.dp),
                 style = MaterialTheme.typography.body2
             )

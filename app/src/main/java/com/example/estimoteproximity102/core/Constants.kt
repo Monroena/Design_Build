@@ -6,6 +6,5 @@ object Constants {
 
     const val CLIENTS="clients"
 
-
     const val FIREBASETAG = "Firebase"
 }

@@ -33,7 +33,4 @@ class ClientRepositoryFirestore: ClientRepository {
         }
     }
 
-
-
-
 }

@@ -17,7 +17,7 @@ class ClientViewModel : ViewModel() {
 
     fun addClients(){
         clientRepository.getClients();
-        //clientRepository.clients.add(Clients("Joe Tester", "V2.02"))
+
     }
 }
 
