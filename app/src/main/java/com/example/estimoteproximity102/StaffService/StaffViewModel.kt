@@ -17,6 +17,8 @@ class StaffViewModel : ViewModel() {
         staffRepository.getStaff()
     }
 
+
+
     fun addStaff(){
         staffRepository.getStaff();
         staffRepository.staff.add(Staff("Joe Tester", "V2.02"))

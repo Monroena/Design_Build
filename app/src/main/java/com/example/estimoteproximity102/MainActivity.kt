@@ -20,6 +20,7 @@ import com.estimote.proximity_sdk.api.*
 import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_ID
 import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_TOKEN
 import com.example.estimoteproximity102.Beacons.ZoneEventViewModel
+import com.example.estimoteproximity102.Clients.ClientScreen
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 //import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
 
@@ -51,7 +52,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Message(zoneEventViewModel)
-                    StaffScreen()
+                    ClientScreen() //viser borgere
+                   // StaffScreen() //viser Staff
+
                 }
             }
         }
