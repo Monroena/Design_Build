@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EstimoteProximity102</string>
+    <string name="sign_in_welcome_text">Velkommen til QuickJournal!</string>
+    <string name="sign_in">Login</string>
 </resources>

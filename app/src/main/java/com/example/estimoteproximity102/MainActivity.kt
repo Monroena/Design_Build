@@ -22,6 +22,8 @@ import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_TOKEN
 import com.example.estimoteproximity102.Beacons.ZoneEventViewModel
 import com.example.estimoteproximity102.Clients.ClientScreen
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
+import com.example.estimoteproximity102.ui.theme.LoginSide
+
 //import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
 
 
@@ -46,6 +48,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EstimoteProximity102Theme {
+                LoginSide()
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -151,6 +154,7 @@ fun DefaultPreview() {
         //Message("Android")
 
     }
+
 
 }
 //////add///////
