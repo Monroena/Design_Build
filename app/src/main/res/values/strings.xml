@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">EstimoteProximity102</string>
     <string name="title_activity_tjek_ind">TjekIndActivity</string>
+    <string name="borger_navn">BorgerNavn</string>
 </resources>
