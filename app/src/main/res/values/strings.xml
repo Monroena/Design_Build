@@ -2,4 +2,6 @@
     <string name="app_name">EstimoteProximity102</string>
     <string name="sign_in_welcome_text">Velkommen til QuickJournal!</string>
     <string name="sign_in">Login</string>
+    <string name="email">Brugernavn</string>
+    <string name="kodeord">Kodeord</string>
 </resources>
