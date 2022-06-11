@@ -3,34 +3,48 @@ package com.example.estimoteproximity102.ui.theme
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.estimoteproximity102.R
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-@Preview(showSystemUi = true)
 @Composable
-fun LoginSide(){
+fun LoginSide(onUserLoggedIn: () -> Unit){
+
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ){
+        val email = remember { mutableStateOf("") }
+        val password = remember { mutableStateOf("") }
+
+        val onEmailChanged = { newEmail: String ->
+            Log.i("Staff", "Parent state opdatering $newEmail")
+            email.value = newEmail
+        }
+
+        val onPasswordChanged = { newPassword: String ->
+            Log.i("Staff", "Parent state update $newPassword")
+            password.value = newPassword
+        }
+
         Title()
-        Email()
-        Password()
-        SignInButton()
+        Email(email, onEmailChanged)
+        Password(password, onPasswordChanged)
+        SignInButton(email, password, onUserLoggedIn)
     }
 }
 @Composable fun Title(){
@@ -41,25 +55,37 @@ fun LoginSide(){
     )
 }
 
-private lateinit var mDatabase: DatabaseReference
+@Composable fun SignInButton(email: MutableState<String>, password: MutableState<String>, onUserLoggedIn: () -> Unit){
+//    var buttonColor = Color.Gray
+//    if (email.value == "hej"){
+//        buttonColor = Color.Green
+//    }
 
-@Composable fun SignInButton(){
     Button(
         onClick = {
-// ...
-            mDatabase = Firebase.database.reference
+            Log.i("Staff", "Email value: " + email.value)
+            Log.i("Staff", "Password value " + password.value)
+            val db = Firebase.firestore
+            db.collection("staff").get().addOnSuccessListener{ result ->
+                for (document in result) {
+                    if (email.value == document.data["Email"] && password.value == document.data["Kodeord"]){
+                        Log.i("Staff", "Virkede!")
+                        onUserLoggedIn()
+                    } else {
+                        Log.i("Staff", "Virkede ikke")
+                    }
+                    Log.i("Staff", document.data["Email"].toString())
+                    Log.i("Staff", document.data["Kodeord"].toString())
+                    // Log.d("Staff", "${document.id} => ${document.data}")
+                }
+            }
+            },
 
-            mDatabase.child("staff").get().addOnSuccessListener {
-            Log.i("firebase", "Got value ${it.value}")
-        }.addOnFailureListener{
-            Log.e("firebase", "Error getting data", it)
-        }},
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(24.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Gray,
             contentColor=Color.White
-
         )
     ) {
         Text(
@@ -68,11 +94,10 @@ private lateinit var mDatabase: DatabaseReference
         
     }
 }
-@Composable fun Password(){
-    val passwordState = remember { mutableStateOf(TextFieldValue())}
+@Composable fun Password(password: MutableState<String>, onPasswordChanged: (String) -> Unit){
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = passwordState.value, onValueChange ={passwordState.value=it},
+        value = password.value, onValueChange = { onPasswordChanged(it) },
         label = {Text(text= stringResource(R.string.kodeord))},
                 colors=TextFieldDefaults.textFieldColors(
                     focusedIndicatorColor = Color.Transparent,
@@ -81,16 +106,18 @@ private lateinit var mDatabase: DatabaseReference
         shape = RoundedCornerShape(9.dp)
     )
 }
-@Composable fun Email(){
-    val emailState = remember { mutableStateOf(TextFieldValue())}
+@Composable fun Email(email: MutableState<String>, onEmailChanged: (String) -> Unit){
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            value = emailState.value,
-            onValueChange ={emailState.value=it},
+            value = email.value,
+            onValueChange = { onEmailChanged(it)},
             label = {Text(text= stringResource(R.string.email))},
             colors=TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Yellow,
                 unfocusedIndicatorColor = Color.Transparent
+            ),
+            shape=RoundedCornerShape(12.dp),
+            keyboardOptions= KeyboardOptions(keyboardType = KeyboardType.Email)
             )
-        )
+
     }
