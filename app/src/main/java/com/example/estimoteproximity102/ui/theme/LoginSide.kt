@@ -1,5 +1,6 @@
 package com.example.estimoteproximity102.ui.theme
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -13,6 +14,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.estimoteproximity102.R
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 @Preview(showSystemUi = true)
 @Composable
@@ -36,9 +40,20 @@ fun LoginSide(){
 
     )
 }
+
+private lateinit var mDatabase: DatabaseReference
+
 @Composable fun SignInButton(){
     Button(
-        onClick = {},
+        onClick = {
+// ...
+            mDatabase = Firebase.database.reference
+
+            mDatabase.child("staff").get().addOnSuccessListener {
+            Log.i("firebase", "Got value ${it.value}")
+        }.addOnFailureListener{
+            Log.e("firebase", "Error getting data", it)
+        }},
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(24.dp),
         colors = ButtonDefaults.buttonColors(
