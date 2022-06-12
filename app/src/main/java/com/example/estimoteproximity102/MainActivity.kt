@@ -48,9 +48,10 @@ class MainActivity : ComponentActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContent {
+            //i følgende er brugeren som udgangspunkt ikke logget ind da value er sat til false.
+            //Hvis userLoggedIn.value fra signInButton-komponentens funktion userloggedind er kørt så værdien true og der vises næste side
             val userLoggedIn = remember { mutableStateOf(false)}
             val onUserLoggedIn = {
                 userLoggedIn.value = true

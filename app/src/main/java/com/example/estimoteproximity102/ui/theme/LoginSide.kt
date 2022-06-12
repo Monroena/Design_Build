@@ -20,8 +20,6 @@ import com.google.firebase.ktx.Firebase
 
 @Composable
 fun LoginSide(onUserLoggedIn: () -> Unit){
-
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,13 +28,13 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
     ){
         val email = remember { mutableStateOf("") }
         val password = remember { mutableStateOf("") }
-
         val onEmailChanged = { newEmail: String ->
+            //Test af opdatering af parentkomponentens state i log
             Log.i("Staff", "Parent state opdatering $newEmail")
             email.value = newEmail
         }
-
         val onPasswordChanged = { newPassword: String ->
+            //Test af opdatering af parentkomponentens state i log
             Log.i("Staff", "Parent state update $newPassword")
             password.value = newPassword
         }
@@ -47,15 +45,16 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
         SignInButton(email, password, onUserLoggedIn)
     }
 }
+//stateless
 @Composable fun Title(){
     Text(
-       text = stringResource(R.string.sign_in_welcome_text)
-
-
+       text = stringResource(R.string.sign_in_welcome_text),
+       //Gerne ændre tekststørrelsen af titlen til lidt større her.
     )
 }
-
+//Følgende er statefull men kunne mere optimalt være statesless i stedet
 @Composable fun SignInButton(email: MutableState<String>, password: MutableState<String>, onUserLoggedIn: () -> Unit){
+//Følgende kode er test af den løbende opdatering af SignInButton-komponentens state
 //    var buttonColor = Color.Gray
 //    if (email.value == "hej"){
 //        buttonColor = Color.Green
@@ -94,26 +93,29 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
         
     }
 }
+//Følgende er stateless
 @Composable fun Password(password: MutableState<String>, onPasswordChanged: (String) -> Unit){
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = password.value, onValueChange = { onPasswordChanged(it) },
         label = {Text(text= stringResource(R.string.kodeord))},
                 colors=TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color.Transparent,
+                    focusedIndicatorColor = Color.Blue,
                     unfocusedIndicatorColor = Color.Transparent
                 ),
         shape = RoundedCornerShape(9.dp)
     )
 }
+//Følgende er stateless
 @Composable fun Email(email: MutableState<String>, onEmailChanged: (String) -> Unit){
         TextField(
             modifier = Modifier.fillMaxWidth(),
             value = email.value,
             onValueChange = { onEmailChanged(it)},
+            //i følgende er "email" defineret til at være en tekst: "Brugernavn" som kan ændres i strings.xml
             label = {Text(text= stringResource(R.string.email))},
             colors=TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = Color.Yellow,
+                focusedIndicatorColor = Color.Blue,
                 unfocusedIndicatorColor = Color.Transparent
             ),
             shape=RoundedCornerShape(12.dp),
