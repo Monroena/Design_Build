@@ -114,6 +114,7 @@ class MainActivity : ComponentActivity() {
             .inNearRange()
             .onEnter {
                 Log.d(TAG, "Enter: ${it.tag}")
+                //hente staff fra firebase på baggrund af beaconTag-værdien igennem en viewmodel.
             }
             .onExit {
                 Log.d(TAG, "Exit: ${it.tag}")
