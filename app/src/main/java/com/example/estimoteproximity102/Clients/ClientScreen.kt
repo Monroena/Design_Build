@@ -31,5 +31,6 @@ fun ClientScreen(
         ClientCardList(
             list = clientViewModel.clientRepository.clients
         )
+
     }
 }
