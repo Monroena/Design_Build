@@ -13,6 +13,6 @@ data class Clients (
     var beaconID: String?=null,
     var zipCode: String?=null,
     var beaconTag: String?=null,
-    @ServerTimestamp
-    var birthday: Date?=null,
+    //@ServerTimestamp
+    var birthdate: Date?=null,
 )
