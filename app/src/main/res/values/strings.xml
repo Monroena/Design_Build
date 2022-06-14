@@ -7,6 +7,6 @@
     <string name="title_activity_tjek_ind">TjekIndActivity</string>
     <string name="borger_navn">BorgerNavn</string>
     <string name="title_activity_for_sjov">ForSjovActivity</string>
-    <string name="borgerNavn">borgerNavn</string>
-    <string name="borgerOpgaveliste">borgerOpgaveliste</string>
+    <string name="borgerNavn">Borgernavn</string>
+    <string name="borgerOpgaveliste">Opgaveliste</string>
 </resources>
