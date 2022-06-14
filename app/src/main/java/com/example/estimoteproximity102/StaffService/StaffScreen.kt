@@ -20,7 +20,7 @@ fun StaffScreen(
     Column{
         Row{
             Text("${staffViewModel.staffRepository.staff.size}")
-            Spacer(modifier = Modifier.width(40.dp))
+            Spacer(modifier = Modifier.width(45.dp))
             Button(onClick = { staffViewModel.addStaff() }) {
                 Text(text = "Staff")
             }

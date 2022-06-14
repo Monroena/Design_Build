@@ -4,4 +4,5 @@
     <string name="sign_in">Login</string>
     <string name="email">Brugernavn</string>
     <string name="kodeord">Kodeord</string>
+    <string name="title_activity_client_info">ClientInfo</string>
 </resources>

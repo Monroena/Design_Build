@@ -100,5 +100,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation "com.google.firebase:firebase-firestore-ktx"
 
+    // Tabview
+    implementation "androidx.paging:paging-compose:1.0.0-alpha15"
+    // https://mvnrepository.com/artifact/com.google.accompanist/accompanist-pager
+    implementation"com.google.accompanist:accompanist-pager:0.24.10-beta"
+
+    implementation "com.google.accompanist:accompanist-pager:0.23.0"
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.23.0"
+
+
+
 
 }

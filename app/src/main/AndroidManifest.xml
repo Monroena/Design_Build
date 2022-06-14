@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.estimoteproximity102">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EstimoteProximity102">
+        <activity
+            android:name=".ClientInfo"
+            android:exported="false"
+            android:label="@string/title_activity_client_info"
+            android:theme="@style/Theme.EstimoteProximity102" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
