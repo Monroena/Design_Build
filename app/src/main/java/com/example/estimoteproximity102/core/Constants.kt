@@ -4,7 +4,7 @@ object Constants {
     //Firestore
     const val STAFF = "staff"
 
-    const val CLIENTS="clients"
+    const val CLIENTS = "clients"
 
     const val FIREBASETAG = "Firebase"
 }

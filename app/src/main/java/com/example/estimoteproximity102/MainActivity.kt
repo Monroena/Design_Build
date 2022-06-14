@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -22,9 +25,11 @@ import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_TOKEN
 import com.example.estimoteproximity102.Beacons.ZoneEventViewModel
 import com.example.estimoteproximity102.Clients.ClientScreen
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
+import com.example.estimoteproximity102.ui.theme.LoginSide
+
 //import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
 
-
+//YEAHYEAH
 //import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
 
 private const val TAG = "PROXIMITY"
@@ -45,14 +50,27 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            //i følgende er brugeren som udgangspunkt ikke logget ind da value er sat til false.
+            //Hvis userLoggedIn.value fra signInButton-komponentens funktion userloggedind er kørt så værdien true og der vises næste side
+            val userLoggedIn = remember { mutableStateOf(false)}
+            val onUserLoggedIn = {
+                userLoggedIn.value = true
+            }
+
             EstimoteProximity102Theme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Message(zoneEventViewModel)
-                    ClientScreen() //viser borgere
+
+                    if (userLoggedIn.value){
+                        Message(zoneEventViewModel)
+                        ClientScreen() //viser borgere
+                    } else {
+                        LoginSide(onUserLoggedIn)
+                    }
+
                    // StaffScreen() //viser Staff
 
                 }
@@ -96,6 +114,7 @@ class MainActivity : ComponentActivity() {
             .inNearRange()
             .onEnter {
                 Log.d(TAG, "Enter: ${it.tag}")
+                //skal hente staff fra firebase på baggrund af beaconTag-værdien igennem en viewmodel.
             }
             .onExit {
                 Log.d(TAG, "Exit: ${it.tag}")
@@ -151,6 +170,7 @@ fun DefaultPreview() {
         //Message("Android")
 
     }
+
 
 }
 //////add///////

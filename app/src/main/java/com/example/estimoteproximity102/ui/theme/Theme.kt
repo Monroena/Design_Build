@@ -1,13 +1,17 @@
 package com.example.estimoteproximity102.ui.theme
 
+import android.graphics.Color
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
+//val blue = Color(CColor.parseColor))
+
+
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
+    primary = androidx.compose.ui.graphics.Color.Blue,
     primaryVariant = Purple700,
     secondary = Teal200
 )
