@@ -8,7 +8,7 @@
     <string name="borger_navn">BorgerNavn</string>
     <string name="title_activity_for_sjov">ForSjovActivity</string>
     <string name="borgerNavn">Borgernavn</string>
-    <string name="borgerOpgaveliste">Opgaveliste</string>
+    <string name="brugerNavn">Brugernavn</string>
     <string name="title_activity_client_info">ClientInfo</string>
     <string name="info">Indtast et notat i følgende felt</string>
     <string name="opret_notat">Opret notat</string>

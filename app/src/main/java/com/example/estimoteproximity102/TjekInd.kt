@@ -1,11 +1,6 @@
 package com.example.estimoteproximity102
 
-import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -28,34 +23,23 @@ fun TjekIndPreview() {
 
 @Composable
 fun TjekInd() {
-//    var BorgerNavn by remember { mutableStateOf("") }
-    var BorgerOpgaveliste by remember { mutableStateOf("")}
+    var Brugernavn by remember { mutableStateOf("")}
     val context = LocalContext.current
     Column(
         modifier = Modifier.padding(horizontal = 10.dp)
     ) {
-//        OutlinedTextField(
-//            value = BorgerNavn,
-//            onValueChange = { BorgerNavn = it },
-//            label = { Text(stringResource(R.string.borgerNavn)) },
-//            modifier = Modifier.fillMaxWidth()
-//        )
         Text(text = "Borgerens navn")
         OutlinedTextField(
-            value = BorgerOpgaveliste,
-            onValueChange = { BorgerOpgaveliste = it },
-            label = { Text(stringResource(R.string.borgerOpgaveliste))},
+            value = Brugernavn,
+            onValueChange = { Brugernavn = it },
+            //Brugernavnet er navnet på visitor der skal logges
+            label = { Text(stringResource(R.string.brugerNavn))},
             modifier = Modifier.fillMaxWidth()
         )
         //Text(text = )
         Button(
-            onClick = {
-//                Toast.makeText(
-//                    context,
-//                    "Du er tjekket ind",
-//                    Toast.LENGTH_LONG
-//                ).show()
-            }) {
+            onClick = {}
+        ) {
             Text(text = "Tjek Ind")
         }
     }

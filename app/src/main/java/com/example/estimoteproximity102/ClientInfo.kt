@@ -215,6 +215,7 @@ fun LogScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        //TjekInd()
         Text(text = "Log Screen")
         Text(text = "Vis log fra firebase her")
 
