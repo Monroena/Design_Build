@@ -29,7 +29,7 @@ import com.example.estimoteproximity102.ui.theme.LoginSide
 
 //import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
 
-
+//YEAHYEAH
 //import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
 
 private const val TAG = "PROXIMITY"
@@ -114,6 +114,7 @@ class MainActivity : ComponentActivity() {
             .inNearRange()
             .onEnter {
                 Log.d(TAG, "Enter: ${it.tag}")
+                //skal hente staff fra firebase på baggrund af beaconTag-værdien igennem en viewmodel.
             }
             .onExit {
                 Log.d(TAG, "Exit: ${it.tag}")

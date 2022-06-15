@@ -20,11 +20,14 @@ fun ClientScreen(
     Column{
         Row{
             Text("${clientViewModel.clientRepository.clients.size}")
-            Spacer(modifier = Modifier.width(40.dp))
+            Spacer(modifier = Modifier.width(45.dp))
+            /*
             Button(onClick = { clientViewModel.addClients() }) {
                 Text(text = "Clients")
             }
+             */
         }
+        Spacer(modifier = Modifier.width(200.dp))
         ClientCardList(
             list = clientViewModel.clientRepository.clients
         )
