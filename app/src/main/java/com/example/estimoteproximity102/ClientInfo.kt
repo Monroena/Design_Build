@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.MailOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -22,9 +23,9 @@ import androidx.navigation.NavController
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.selects.select
 
-class ClientInfo {
-}
+class ClientInfo {}
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -63,12 +64,30 @@ fun ClientInfoView(navController: NavController) {
             BottomAppBar(
                 cutoutShape = MaterialTheme.shapes.small.copy(
                     CornerSize(percent = 50)
-                ),
-
+                )
             ) {
+                BottomNavigationItem(
+                    icon = {
+                           Icon(imageVector = Icons.Outlined.MailOutline,
+                               contentDescription = "Nyt Notat")
+                    },
+                    selectedContentColor = Color.Gray,
+                    onClick = { navController.navigate("NyNotat")},
+                selected = true)
+
+                BottomNavigationItem(
+                    icon = {
+                        Icon(imageVector = Icons.Outlined.CheckCircle,
+                            contentDescription = "Tjek Ind")
+                    },
+                    selectedContentColor = Color.Gray,
+                    onClick = { navController.navigate("TjekInd")},
+                    selected = true)
+
             }
-        },
-        floatingActionButton = {
+        }
+        ,
+       /* floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate("TjekInd")
                     Toast.makeText(
@@ -83,6 +102,8 @@ fun ClientInfoView(navController: NavController) {
             }
         },
         floatingActionButtonPosition = FabPosition.End,
+
+         */
         content ={
             Column(
                 modifier = Modifier.fillMaxSize()) {
