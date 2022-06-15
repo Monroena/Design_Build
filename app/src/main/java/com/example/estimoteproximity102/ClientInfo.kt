@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 
 import com.google.accompanist.pager.*
@@ -37,16 +39,18 @@ class ClientInfo : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainContent()
+                    //MainContent()
                 }
             }
         }
     }
 }
 
+
+
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun MainContent() {
+fun ClientInfoView(navController: NavController) {
 
     val context = LocalContext.current
     val list = listOf(
@@ -63,7 +67,7 @@ fun MainContent() {
                     Text(text = "QuickJournal")
                 },
                 navigationIcon = {
-                    IconButton(onClick = {
+                    IconButton(onClick = { navController.navigate("ClientScreen")
                         Toast.makeText(
                             context,
                             "tilbage til Borgerliste",
@@ -156,7 +160,6 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
 
 }
 
-
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun TabContent(tabs: List<TabItem>, pagerState: PagerState) {
@@ -183,10 +186,7 @@ fun HomeScreen() {
         Text(text = "10 nov 1933")
         Text(text = "Adresse:")
         Text(text = "Borgervej 122")
-
         Text(text = "Hent data fra firebase ved relevant tag")
-
-
 
     }
 }
@@ -200,9 +200,7 @@ fun ClientInformation(){
         Text(text = "10 nov 1933")
         Text(text = "Adresse:")
         Text(text = "Borgervej 122")
-        
         Text(text = "Hent data fra firebase ved relevant tag")
-
     }
 }
 
@@ -250,7 +248,7 @@ fun DefaultPreview2() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            MainContent()
+            //MainContent()
         }
     }
 }
