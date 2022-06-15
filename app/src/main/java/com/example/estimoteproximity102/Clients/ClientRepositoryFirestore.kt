@@ -1,36 +1,103 @@
-package com.example.estimoteproximity102.Clients
+package com.example.estimoteproximity102.model
 
 import android.util.Log
 import androidx.compose.runtime.toMutableStateList
+import com.example.estimoteproximity102.Clients.ClientMembers
+import com.example.estimoteproximity102.Clients.ClientRepository
+import com.example.estimoteproximity102.core.Constants
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.flatbuffers.Constants
 
-class ClientRepositoryFirestore: ClientRepository {
-    var clients = mutableListOf<Clients>().toMutableStateList()
+class ClientRepositoryFirestore : ClientRepository {
+
+    override var clients = mutableListOf<ClientMembers>().toMutableStateList()
+
+    override fun getClients(clientID: String) {
+        val docRef = FirebaseFirestore.getInstance()
+            .collection(Constants.CLIENTS)
+
+        docRef.whereEqualTo(Constants.ZONETAG, clientID)
+            .get().addOnSuccessListener { documents ->
+                clients = documents.toObjects(ClientMembers::class.java).toMutableStateList()
+
+                logClients("getStaffMemeber")
+                for (document in documents) {
+                    Log.d(
+                        Constants.FIREBASETAG,
+                        "Number of documents => ${documents.size()}"
+                    )
+                    Log.d(
+                        Constants.FIREBASETAG,
+                        "${document.id} => ${document.data}"
+                    )
+
+                }
+            }.addOnFailureListener { exception ->
+                Log.w(Constants.FIREBASETAG, "Error getting documents: ", exception)
+            }
+
+
+    }
 
     override fun getClients() {
-        FirebaseFirestore.getInstance().collection(dtu.engtech.iabr.stateincompose.core.Constants.CLIENTS)
+        val docRef = FirebaseFirestore.getInstance()
+        docRef.collection(Constants.CLIENTS)
+            .get().addOnSuccessListener { documents ->
+                clients = documents.toObjects(ClientMembers::class.java).toMutableStateList()
+
+                logClients("getClientMember")
+                for (document in documents) {
+                    Log.d(
+                        Constants.FIREBASETAG,
+                        "Number of documents => ${documents.size()}"
+                    )
+                    Log.d(
+                        Constants.FIREBASETAG,
+                        "${document.id} => ${document.data}"
+                    )
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(
+                    Constants.FIREBASETAG,
+                    "Error getting documents: ",
+                    exception
+                )
+            }
+    }
+
+
+
+
+
+
+
+
+
+
+    override fun addListener() {
+        FirebaseFirestore.getInstance().collection(Constants.CLIENTS)
             .addSnapshotListener { snapshot, e ->
                 if (e != null) {
-                    Log.w(dtu.engtech.iabr.stateincompose.core.Constants.FIREBASETAG, "Listen failed.", e)
+                    Log.w(Constants.FIREBASETAG, "Listen failed.", e)
                     //return@addSnapshotListener
                 }
 
                 if (snapshot != null) {
-                    clients = snapshot.toObjects(Clients::class.java).toMutableStateList()
-                    Log.d(dtu.engtech.iabr.stateincompose.core.Constants.FIREBASETAG, "Current data size: ${clients.size}")
-                    logClients()
+                    clients = snapshot.toObjects(ClientMembers::class.java).toMutableStateList()
+                    logClients("Initial read")
 
                 } else {
-                    Log.d(dtu.engtech.iabr.stateincompose.core.Constants.FIREBASETAG, "Current data: null")
+                    Log.d(Constants.FIREBASETAG, "Current data: null")
                 }
             }
     }
 
-    fun logClients(){
-        for(clientMember in clients) {
-            Log.d(dtu.engtech.iabr.stateincompose.core.Constants.FIREBASETAG, "Member: $clientMember")
+    private fun logClients(comment: String) {
+        for (clientMember in clients) {
+
+            Log.d(Constants.FIREBASETAG, "$comment: $clientMember")
         }
     }
-
 }

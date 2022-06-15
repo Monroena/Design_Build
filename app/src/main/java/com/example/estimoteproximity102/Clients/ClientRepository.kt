@@ -1,8 +1,10 @@
 package com.example.estimoteproximity102.Clients
 
-import android.util.Log
-import dtu.engtech.iabr.stateincompose.core.Constants
-
 interface ClientRepository {
+    abstract val clients: List<ClientMembers>
+    fun getClients(clientID: String )
+    //fun getClients()
+    fun addListener()
+
     fun getClients()
 }

@@ -24,7 +24,7 @@ class ZoneEventViewModel: ViewModel() {
     }
 
     fun updateZoneContexts(zoneContexts: Set<ProximityZoneContext>) {
-        this.zoneContexts = zoneContexts //as Set<ProximityZoneContext>
+        this.zoneContexts = zoneContexts as Set<ProximityZoneContext>
         Log.d(TAG, "ZONE CONTEXTS: ${zoneContexts.toString()}")
     }
 }

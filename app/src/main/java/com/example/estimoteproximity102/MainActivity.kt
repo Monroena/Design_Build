@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,14 +22,16 @@ import com.estimote.proximity_sdk.api.*
 import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_ID
 import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_TOKEN
 import com.example.estimoteproximity102.Beacons.ZoneEventViewModel
+import com.example.estimoteproximity102.Beacons.ZoneName
+//import com.example.estimoteproximity102.core.CloudCredentials.APP_ID
+//import com.example.estimoteproximity102.core.CloudCredentials.APP_TOKEN
+
 import com.example.estimoteproximity102.Clients.ClientScreen
+import com.example.estimoteproximity102.Clients.ClientViewModel
+import com.example.estimoteproximity102.core.Constants
+//import com.example.estimoteproximity102.model.ZoneEventViewModel
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.example.estimoteproximity102.ui.theme.LoginSide
-
-//import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
-
-//YEAHYEAH
-//import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
 
 private const val TAG = "PROXIMITY"
 
@@ -38,13 +39,13 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var proximityObserver: ProximityObserver
     private var proximityObservationHandler: ProximityObserver.Handler? = null
-
     private val cloudCredentials = EstimoteCloudCredentials(
         APP_ID,
         APP_TOKEN
     )
 
-    val zoneEventViewModel by viewModels<ZoneEventViewModel>()
+    private val clientViewModel by viewModels<ClientViewModel>()
+    val zoneViewModel by viewModels<ZoneEventViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,11 +62,12 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
+                    color = MaterialTheme.colors.background) {
+                    ClientScreen(clientViewModel) //Added
+
 
                     if (userLoggedIn.value){
-                        Message(zoneEventViewModel)
+                        Message(zoneViewModel)
                         ClientScreen() //viser borgere
                     } else {
                         LoginSide(onUserLoggedIn)
@@ -84,6 +86,7 @@ class MainActivity : ComponentActivity() {
             onRequirementsMissing = displayToastAboutMissingRequirements,
             onError = displayToastAboutError
         )
+        clientViewModel.clientRepository.addListener()
     }
 
     override fun onDestroy() {
@@ -92,6 +95,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun startProximityObservation() {
+        Log.d(Constants.BEACONLOGTAG, "StartObserving")
         proximityObserver = ProximityObserverBuilder(applicationContext, cloudCredentials)
             .onError(displayToastAboutError)
             .withTelemetryReportingDisabled()
@@ -101,9 +105,9 @@ class MainActivity : ComponentActivity() {
             .build()
 
         val proximityZones = ArrayList<ProximityZone>()
-        proximityZones.add(zoneBuild("515"))
-        proximityZones.add(zoneBuild("517"))
-        proximityZones.add(zoneBuild("518"))
+        proximityZones.add(zoneBuild(ZoneName.TAG515))
+        proximityZones.add(zoneBuild(ZoneName.TAG517))
+        proximityZones.add(zoneBuild(ZoneName.TAG518))
 
         proximityObservationHandler = proximityObserver.startObserving(proximityZones)
     }
@@ -114,16 +118,20 @@ class MainActivity : ComponentActivity() {
             .inNearRange()
             .onEnter {
                 Log.d(TAG, "Enter: ${it.tag}")
+               clientViewModel.getClient(it.tag)
+
                 //skal hente staff fra firebase på baggrund af beaconTag-værdien igennem en viewmodel.
             }
             .onExit {
                 Log.d(TAG, "Exit: ${it.tag}")
+
             }
             .onContextChange {
                 Log.d(TAG, "Change: ${it}")
-            zoneEventViewModel.updateZoneContexts(it)
+            zoneViewModel.updateZoneContexts(it)
             }
             .build()
+
     }
 
     // Lambda functions for displaying errors when checking requirements
@@ -141,26 +149,12 @@ class MainActivity : ComponentActivity() {
             Toast.LENGTH_SHORT
         ).show()
     }
-    /////////add////
-    /*
-    setContent {
-        StateInComposeTheme {
-            // A surface container using the 'background' color from the theme
-            Surface(
-                //modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colors.background
-            ) {
-                StaffScreen()
-            }
-        }
-    }
 
-     */
 }
 
 @Composable
 fun Message(zoneEventViewModel: ZoneEventViewModel) {
-    Text(text = zoneEventViewModel.tag, fontSize = 30.sp)
+    Text(text = zoneEventViewModel.tag, fontSize = 40.sp)
 }
 
 @Preview(showBackground = true)
@@ -173,14 +167,4 @@ fun DefaultPreview() {
 
 
 }
-//////add///////
-/*
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    StateInComposeTheme {
-        StaffScreen()
-    }
-}
 
- */

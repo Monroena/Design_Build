@@ -5,12 +5,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-
-import dtu.engtech.iabr.stateincompose.core.Constants
+import com.example.estimoteproximity102.core.Constants
 
 @Composable
 fun ClientCardList(
-    list: List<Clients>,
+    list: List<ClientMembers>,
     modifier: Modifier = Modifier
 ) {
     Log.d(Constants.FIREBASETAG, "ClientList size: ${list.size}")

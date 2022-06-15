@@ -21,7 +21,7 @@ class StaffViewModel : ViewModel() {
 
     fun addStaff(){
         staffRepository.getStaff();
-        staffRepository.staff.add(Staff("Joe Tester", "V2.02"))
+        staffRepository.staff.add(Staff("Joe Tester", "Sygeplejsker"))
     }
 }
 

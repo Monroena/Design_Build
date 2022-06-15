@@ -3,11 +3,12 @@ package com.example.estimoteproximity102.Clients
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ServerTimestamp
 
 import java.util.*
 
-data class Clients (
+data class ClientMembers (
     var name: String? = null,
     var address: String? =null,
     var beaconID: String?=null,
@@ -15,4 +16,5 @@ data class Clients (
     var beaconTag: String?=null,
     //@ServerTimestamp
     var birthdate: Date?=null,
+
 )

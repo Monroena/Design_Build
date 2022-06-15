@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ClientCard(
-    clients: Clients,
+    clients: ClientMembers,
     modifier: Modifier = Modifier
 ) {
     Row(modifier = Modifier.padding(all = 8.dp)) {
