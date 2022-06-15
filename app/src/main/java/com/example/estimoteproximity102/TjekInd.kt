@@ -28,32 +28,33 @@ fun TjekIndPreview() {
 
 @Composable
 fun TjekInd() {
-    var BorgerNavn by remember { mutableStateOf("") }
+//    var BorgerNavn by remember { mutableStateOf("") }
     var BorgerOpgaveliste by remember { mutableStateOf("")}
     val context = LocalContext.current
     Column(
         modifier = Modifier.padding(horizontal = 10.dp)
     ) {
-
-        OutlinedTextField(
-            value = BorgerNavn,
-            onValueChange = { BorgerNavn = it },
-            label = { Text(stringResource(R.string.borgerNavn)) },
-            modifier = Modifier.fillMaxWidth()
-        )
+//        OutlinedTextField(
+//            value = BorgerNavn,
+//            onValueChange = { BorgerNavn = it },
+//            label = { Text(stringResource(R.string.borgerNavn)) },
+//            modifier = Modifier.fillMaxWidth()
+//        )
+        Text(text = "Borgerens navn")
         OutlinedTextField(
             value = BorgerOpgaveliste,
             onValueChange = { BorgerOpgaveliste = it },
             label = { Text(stringResource(R.string.borgerOpgaveliste))},
             modifier = Modifier.fillMaxWidth()
         )
+        //Text(text = )
         Button(
             onClick = {
-                Toast.makeText(
-                    context,
-                    "Du er tjekket ind",
-                    Toast.LENGTH_LONG
-                ).show()
+//                Toast.makeText(
+//                    context,
+//                    "Du er tjekket ind",
+//                    Toast.LENGTH_LONG
+//                ).show()
             }) {
             Text(text = "Tjek Ind")
         }
