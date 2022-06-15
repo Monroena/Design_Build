@@ -63,7 +63,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background) {
-                    ClientScreen(clientViewModel) //Added
+                    ClientScreen(clientViewModel = clientViewModel) //Added
 
 
                     if (userLoggedIn.value){
@@ -104,10 +104,12 @@ class MainActivity : ComponentActivity() {
             .withBalancedPowerMode()
             .build()
 
+
         val proximityZones = ArrayList<ProximityZone>()
         proximityZones.add(zoneBuild(ZoneName.TAG515))
         proximityZones.add(zoneBuild(ZoneName.TAG517))
         proximityZones.add(zoneBuild(ZoneName.TAG518))
+        proximityZones.add(zoneBuild(ZoneName.TAG508))
 
         proximityObservationHandler = proximityObserver.startObserving(proximityZones)
     }
@@ -118,9 +120,9 @@ class MainActivity : ComponentActivity() {
             .inNearRange()
             .onEnter {
                 Log.d(TAG, "Enter: ${it.tag}")
-               clientViewModel.getClient(it.tag)
+                clientViewModel.getClient(it.tag)
 
-                //skal hente staff fra firebase på baggrund af beaconTag-værdien igennem en viewmodel.
+
             }
             .onExit {
                 Log.d(TAG, "Exit: ${it.tag}")
@@ -157,14 +159,19 @@ fun Message(zoneEventViewModel: ZoneEventViewModel) {
     Text(text = zoneEventViewModel.tag, fontSize = 40.sp)
 }
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     EstimoteProximity102Theme {
-        //Message("Android")
+
+       // Message("")
 
     }
 
 
 }
+
+
 

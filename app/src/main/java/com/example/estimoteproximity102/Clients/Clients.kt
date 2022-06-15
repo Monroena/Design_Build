@@ -8,7 +8,7 @@ import com.google.firebase.firestore.ServerTimestamp
 
 import java.util.*
 
-data class ClientMembers (
+data class Clients (
     var name: String? = null,
     var address: String? =null,
     var beaconID: String?=null,

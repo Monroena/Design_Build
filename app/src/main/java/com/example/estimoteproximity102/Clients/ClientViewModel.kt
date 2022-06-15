@@ -10,7 +10,7 @@ class ClientViewModel : ViewModel(){
 
     var staffRepository: ClientRepository =ClientRepositoryFirestore()
     private var _client = clientRepository.clients.toMutableStateList()
-    val clients: List<ClientMembers>
+    val clients: List<Clients>
         get() = _client
 
 

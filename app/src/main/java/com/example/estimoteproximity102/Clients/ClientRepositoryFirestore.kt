@@ -2,14 +2,14 @@ package com.example.estimoteproximity102.model
 
 import android.util.Log
 import androidx.compose.runtime.toMutableStateList
-import com.example.estimoteproximity102.Clients.ClientMembers
+import com.example.estimoteproximity102.Clients.Clients
 import com.example.estimoteproximity102.Clients.ClientRepository
 import com.example.estimoteproximity102.core.Constants
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ClientRepositoryFirestore : ClientRepository {
 
-    override var clients = mutableListOf<ClientMembers>().toMutableStateList()
+    override var clients = mutableListOf<Clients>().toMutableStateList()
 
     override fun getClients(clientID: String) {
         val docRef = FirebaseFirestore.getInstance()
@@ -17,9 +17,9 @@ class ClientRepositoryFirestore : ClientRepository {
 
         docRef.whereEqualTo(Constants.ZONETAG, clientID)
             .get().addOnSuccessListener { documents ->
-                clients = documents.toObjects(ClientMembers::class.java).toMutableStateList()
+                clients = documents.toObjects(Clients::class.java).toMutableStateList()
 
-                logClients("getStaffMemeber")
+                logClients("getClients")
                 for (document in documents) {
                     Log.d(
                         Constants.FIREBASETAG,
@@ -42,7 +42,7 @@ class ClientRepositoryFirestore : ClientRepository {
         val docRef = FirebaseFirestore.getInstance()
         docRef.collection(Constants.CLIENTS)
             .get().addOnSuccessListener { documents ->
-                clients = documents.toObjects(ClientMembers::class.java).toMutableStateList()
+                clients = documents.toObjects(Clients::class.java).toMutableStateList()
 
                 logClients("getClientMember")
                 for (document in documents) {
@@ -85,7 +85,7 @@ class ClientRepositoryFirestore : ClientRepository {
                 }
 
                 if (snapshot != null) {
-                    clients = snapshot.toObjects(ClientMembers::class.java).toMutableStateList()
+                    clients = snapshot.toObjects(Clients::class.java).toMutableStateList()
                     logClients("Initial read")
 
                 } else {

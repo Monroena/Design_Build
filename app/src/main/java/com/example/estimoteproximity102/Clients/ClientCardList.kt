@@ -9,7 +9,7 @@ import com.example.estimoteproximity102.core.Constants
 
 @Composable
 fun ClientCardList(
-    list: List<ClientMembers>,
+    list: List<Clients>,
     modifier: Modifier = Modifier
 ) {
     Log.d(Constants.FIREBASETAG, "ClientList size: ${list.size}")
