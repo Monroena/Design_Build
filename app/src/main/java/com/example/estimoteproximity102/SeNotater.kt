@@ -70,22 +70,35 @@ fun SeNotatButton(seNotat: MutableState<String>, notatFelt: MutableState<String>
         onClick = {
             Log.i("Notes", "Notat tekst: " + seNotat.value)
             val db = Firebase.firestore
-            val documentPath = seNotat.value
-
-            val docRef = db.collection("clients").document("PRQEVOfysywaOI0P5DdJ").collection("notes").document("fY3H9ufpRuTR1h1taT1n")
-            docRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-
-
-                    } else {
-                        Log.d(TAG, "No such document")
+            val ID = seNotat.value
+            db.collection("Notes").whereEqualTo("beaconTag",ID)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d(TAG, "${document.id} => ${document.data}")
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Log.d(TAG, "get failed with ", exception)
+                    Log.d(TAG, "Error getting documents: ", exception)
                 }
+
+            //*/
+                //Følgende kode virker således at ud fra et bestemt indtastede ID hentes info fra en bestemt refDoc.
+                /*
+                    val docRef = db.collection("Notes").document("6PR953um57HDlv5tEK82")
+                    docRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document != null && ID == document.data?.get("beaconTag") ?: ID) {
+                                Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                            } else {
+                                Log.d(TAG, "No such document")
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d(TAG, "get failed with ", exception)
+                        }
+
+                 */
         },
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(24.dp),

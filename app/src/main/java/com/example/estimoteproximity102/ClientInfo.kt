@@ -232,7 +232,8 @@ fun NotesScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        
+        SeNyNotat()
+        //OpretNyNotat()
         Text(text = "Notes Screen")
         Text(text = "Hent noter fra sub-collection i firebase")
         Text(text = "Opret button til oprettelse af ny note")
