@@ -63,7 +63,16 @@ fun MainContent() {
                     Text(text = "QuickJournal")
                 },
                 navigationIcon = {
-                    Icon( imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+                    IconButton(onClick = {
+                        Toast.makeText(
+                            context,
+                            "tilbage til Borgerliste",
+                            Toast.LENGTH_LONG
+                            ).show()
+                    }){
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back")}
                 }
                 )
         },
