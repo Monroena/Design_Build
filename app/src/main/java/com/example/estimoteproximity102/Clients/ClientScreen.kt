@@ -10,12 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
 
 @Composable
 fun ClientScreen(
     modifier: Modifier = Modifier,
     clientViewModel: ClientViewModel = viewModel(),
+    navController: NavController
 ) {
     Column{
         Row{
@@ -31,5 +33,9 @@ fun ClientScreen(
         ClientCardList(
             list = clientViewModel.clientRepository.clients
         )
-    }
-}
+        Button(onClick = { navController.navigate("ClientInfo") }) {
+            Text(text = "Til ClientInfo - Borger side")
+
+
+        }
+}}

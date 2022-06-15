@@ -17,6 +17,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
@@ -65,8 +69,9 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     if (userLoggedIn.value){
-                        Message(zoneEventViewModel)
-                        ClientScreen() //viser borgere
+                        //Message(zoneEventViewModel)
+                        //ClientScreen() //viser borgere
+                        NavDemo()
                     } else {
                         LoginSide(onUserLoggedIn)
                     }
@@ -157,6 +162,34 @@ class MainActivity : ComponentActivity() {
 
      */
 }
+
+@Composable
+fun NavDemo() {
+    val navController = rememberNavController()
+    NavDemoHost(navController)
+}
+
+@Composable
+fun NavDemoHost(navController: NavHostController) {
+    NavHost(
+        navController = navController,
+        startDestination = "ClientScreen"
+    ) {
+        composable("ClientScreen") {
+            ClientScreen(navController = navController)
+        }
+        composable("ClientInfo") {
+            ClientInfoView(navController = navController)
+        }
+        /*
+        composable("Login"){
+            LoginView(navController = navController)
+        }
+        */
+    }
+
+}
+
 
 @Composable
 fun Message(zoneEventViewModel: ZoneEventViewModel) {
