@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 import androidx.lifecycle.ViewModel
+import com.estimote.proximity_sdk.api.ProximityZone
 
 
 import com.estimote.proximity_sdk.api.ProximityZoneContext
@@ -25,6 +26,6 @@ class ZoneEventViewModel: ViewModel() {
 
     fun updateZoneContexts(zoneContexts: Set<ProximityZoneContext>) {
         this.zoneContexts = zoneContexts as Set<ProximityZoneContext>
-        Log.d(TAG, "ZONE CONTEXTS: ${zoneContexts.toString()}")
+        Log.d(TAG, "ZONE CONTEXTS: ${zoneContexts.size}")
     }
 }

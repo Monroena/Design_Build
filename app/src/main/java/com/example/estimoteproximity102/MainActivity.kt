@@ -1,20 +1,26 @@
 package com.example.estimoteproximity102
 
 import android.os.Bundle
+import android.service.autofill.OnClickAction
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
@@ -65,7 +71,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background) {
                     ClientScreen(clientViewModel = clientViewModel) //Added
 
-
                     if (userLoggedIn.value){
                         Message(zoneViewModel)
                         ClientScreen() //viser borgere
@@ -110,7 +115,7 @@ class MainActivity : ComponentActivity() {
         proximityZones.add(zoneBuild(ZoneName.TAG517))
         proximityZones.add(zoneBuild(ZoneName.TAG518))
         proximityZones.add(zoneBuild(ZoneName.TAG508))
-
+        proximityZones.add(zoneBuild(ZoneName.TAG513))
         proximityObservationHandler = proximityObserver.startObserving(proximityZones)
     }
 
@@ -120,8 +125,8 @@ class MainActivity : ComponentActivity() {
             .inNearRange()
             .onEnter {
                 Log.d(TAG, "Enter: ${it.tag}")
-                clientViewModel.getClient(it.tag)
 
+                clientViewModel.getClient(it.tag)
 
             }
             .onExit {
@@ -172,6 +177,5 @@ fun DefaultPreview() {
 
 
 }
-
 
 

@@ -1,6 +1,7 @@
 package com.example.estimoteproximity102.model
 
 import android.util.Log
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.toMutableStateList
 import com.example.estimoteproximity102.Clients.Clients
 import com.example.estimoteproximity102.Clients.ClientRepository
@@ -17,7 +18,10 @@ class ClientRepositoryFirestore : ClientRepository {
 
         docRef.whereEqualTo(Constants.ZONETAG, clientID)
             .get().addOnSuccessListener { documents ->
-                clients = documents.toObjects(Clients::class.java).toMutableStateList()
+                //clients = documents.toObjects(Clients::class.java).toMutableStateList()
+
+
+                clients.addAll(documents.toObjects(Clients::class.java).toMutableStateList())
 
                 logClients("getClients")
                 for (document in documents) {
@@ -66,13 +70,6 @@ class ClientRepositoryFirestore : ClientRepository {
                 )
             }
     }
-
-
-
-
-
-
-
 
 
 
