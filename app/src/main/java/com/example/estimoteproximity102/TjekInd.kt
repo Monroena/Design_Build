@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 
 
@@ -19,6 +20,10 @@ fun TjekIndPreview() {
     EstimoteProximity102Theme {
         TjekInd()
     }
+}
+@Composable
+fun TjekIndView(navController: NavController){
+    TjekInd()
 }
 
 @Composable

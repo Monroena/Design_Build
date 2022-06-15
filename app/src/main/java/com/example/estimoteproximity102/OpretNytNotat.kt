@@ -15,11 +15,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.estimoteproximity102.R
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 private const val TAG = "PROXIMITY"
+@Composable
+fun OpretNotatView(navController: NavController){
+    OpretNyNotat()
+}
 
 @Composable
 fun OpretNyNotat(){

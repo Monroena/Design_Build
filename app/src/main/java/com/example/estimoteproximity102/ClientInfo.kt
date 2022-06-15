@@ -2,8 +2,6 @@ package com.example.estimoteproximity102
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +10,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -21,32 +19,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
-
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
-
-
-class ClientInfo : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            EstimoteProximity102Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    //MainContent()
-                }
-            }
-        }
-    }
+class ClientInfo {
 }
-
-
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -92,11 +70,15 @@ fun ClientInfoView(navController: NavController) {
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { Toast.makeText(
+                onClick = { navController.navigate("TjekInd")
+                    Toast.makeText(
                     context,
                     "Tjekker ind",
-                    Toast.LENGTH_LONG).show() }){
-                Text(text = "+")
+                    Toast.LENGTH_LONG).show() }
+            ){
+                Icons.Outlined.CheckCircle
+                Color.Transparent
+                //Text(text = "+")
 
             }
         },
@@ -115,9 +97,6 @@ fun ClientInfoView(navController: NavController) {
         }
         }
     )
-
-
-
 }
 
 
@@ -151,13 +130,8 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
                 unselectedContentColor = Color.White,
                 enabled = true
             )
-
         }
-
-
     }
-
-
 }
 
 @OptIn(ExperimentalPagerApi::class)
@@ -165,10 +139,8 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
 fun TabContent(tabs: List<TabItem>, pagerState: PagerState) {
     HorizontalPager(count = tabs.size, state = pagerState) { page ->
         tabs[page].screens()
-
     }
 }
-
 
 @Composable
 fun HomeScreen() {
@@ -204,7 +176,6 @@ fun ClientInformation(){
     }
 }
 
-
 @Composable
 fun LogScreen() {
     Column(
@@ -218,11 +189,8 @@ fun LogScreen() {
         //TjekInd()
         Text(text = "Log Screen")
         Text(text = "Vis log fra firebase her")
-
-
     }
 }
-
 
 @Composable
 fun NotesScreen() {
@@ -240,6 +208,7 @@ fun NotesScreen() {
 
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

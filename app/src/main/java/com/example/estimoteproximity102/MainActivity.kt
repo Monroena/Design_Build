@@ -181,6 +181,12 @@ fun NavDemoHost(navController: NavHostController) {
         composable("ClientInfo") {
             ClientInfoView(navController = navController)
         }
+        composable("NyNotat"){
+            OpretNotatView(navController = navController)
+        }
+        composable("TjekInd"){
+            TjekIndView(navController = navController)
+        }
         /*
         composable("Login"){
             LoginView(navController = navController)
