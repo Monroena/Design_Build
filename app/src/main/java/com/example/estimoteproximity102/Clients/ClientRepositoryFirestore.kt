@@ -18,8 +18,6 @@ class ClientRepositoryFirestore : ClientRepository {
 
         docRef.whereEqualTo(Constants.ZONETAG, clientID)
             .get().addOnSuccessListener { documents ->
-                //clients = documents.toObjects(Clients::class.java).toMutableStateList()
-
 
                 clients.addAll(documents.toObjects(Clients::class.java).toMutableStateList())
 

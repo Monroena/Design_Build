@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,16 +34,13 @@ import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_ID
 import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_TOKEN
 import com.example.estimoteproximity102.Beacons.ZoneEventViewModel
 import com.example.estimoteproximity102.Beacons.ZoneName
-//import com.example.estimoteproximity102.core.CloudCredentials.APP_ID
-//import com.example.estimoteproximity102.core.CloudCredentials.APP_TOKEN
-
 import com.example.estimoteproximity102.Clients.ClientScreen
+import com.example.estimoteproximity102.Clients.ClientScreenView
 import com.example.estimoteproximity102.Clients.ClientViewModel
 import com.example.estimoteproximity102.core.Constants
-//import com.example.estimoteproximity102.model.ZoneEventViewModel
+
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.example.estimoteproximity102.ui.theme.LoginSide
-
 
 private const val TAG = "PROXIMITY"
 
@@ -63,8 +61,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             //i følgende er brugeren som udgangspunkt ikke logget ind da value er sat til false.
-            //hvis userLoggedIn.value fra signInButton-komponentens funktion userloggedind er kørt så værdien true og der vises næste side
-            val userLoggedIn = remember { mutableStateOf(false) }
+            //Hvis userLoggedIn.value fra signInButton-komponentens funktion userloggedind er kørt så værdien true og der vises næste side
+            val userLoggedIn = remember { mutableStateOf(false)}
             val onUserLoggedIn = {
                 userLoggedIn.value = true
             }
@@ -74,14 +72,13 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background) {
-                    ClientScreen(clientViewModel = clientViewModel) //Added
+
 
                     if (userLoggedIn.value){
-                        Message(zoneViewModel)
-                        ClientScreen() //viser borgere
-                    if (userLoggedIn.value) {
+                        //Message(zoneViewModel)
                         //Message(zoneEventViewModel)
                         //ClientScreen() //viser borgere
+                        //ClientScreen(clientViewModel = clientViewModel)
                         NavDemo()
                     } else {
                         LoginSide(onUserLoggedIn)
@@ -121,8 +118,7 @@ class MainActivity : ComponentActivity() {
         proximityZones.add(zoneBuild(ZoneName.TAG515))
         proximityZones.add(zoneBuild(ZoneName.TAG517))
         proximityZones.add(zoneBuild(ZoneName.TAG518))
-        proximityZones.add(zoneBuild(ZoneName.TAG508))
-        proximityZones.add(zoneBuild(ZoneName.TAG513))
+
         proximityObservationHandler = proximityObserver.startObserving(proximityZones)
     }
 
@@ -132,7 +128,6 @@ class MainActivity : ComponentActivity() {
             .inNearRange()
             .onEnter {
                 Log.d(TAG, "Enter: ${it.tag}")
-
                 clientViewModel.getClient(it.tag)
 
             }
@@ -166,6 +161,7 @@ class MainActivity : ComponentActivity() {
 
 }
 
+//Ud fra mainActivity
 @Composable
 fun NavDemo() {
     val navController = rememberNavController()
@@ -173,13 +169,20 @@ fun NavDemo() {
 }
 
 @Composable
+fun ClientScreenView2(navController: NavController) {
+    val clientViewModel= ClientScreenView(navController = navController )
+}
+@Composable
 fun NavDemoHost(navController: NavHostController) {
+  val clientViewModel= ClientScreenView(navController = navController ) //Zakir
     NavHost(
         navController = navController,
         startDestination = "ClientScreen"
     ) {
         composable("ClientScreen") {
-            ClientScreen(navController = navController)
+        clientViewModel
+        //ClientScreenView2(navController = navController)
+
         }
         composable("ClientInfo") {
             ClientInfoView(navController = navController)

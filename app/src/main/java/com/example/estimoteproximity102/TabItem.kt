@@ -27,4 +27,11 @@ sealed class TabItem(val title: String, val icons: ImageVector, val screens: Com
         icons = Icons.Outlined.MailOutline,
         screens = { NotesScreen() }
     )
+
+
+
 }
+
+
+
+
