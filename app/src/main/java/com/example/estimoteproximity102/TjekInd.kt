@@ -1,6 +1,7 @@
 package com.example.estimoteproximity102
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,51 +12,37 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 private const val TAG = "TjekInd"
 
-@Preview(showBackground = true)
 @Composable
-fun TjekIndPreview() {
-    //TjekInd()
-}
-@Composable
-fun TjekIndView(navController: NavController){
-    //TjekInd()
-}
-
-@Composable
-fun TjekInd(navController: NavController){
+fun TjekInd(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
-    ){
+    ) {
+        val context = LocalContext.current
         val visitorNavn = remember { mutableStateOf("") }
         val onVisitorNavnChanged = { newVisitorNavn: String ->
-            //Test af opdatering af parentkomponentens state i log
-            Log.i("Visitor", "Parent state opdatering $newVisitorNavn")
             visitorNavn.value = newVisitorNavn
         }
-    //Brug de øvrige composable funktioner her
-    //BorgerNavn()
         Text(
             text = "Borgerens navn"
         )
-    //VisitorNavn(visitorNavn, onVisitorNavnChanged)
         TextField(
             modifier = Modifier.fillMaxWidth(),
             value = visitorNavn.value,
             onValueChange = { onVisitorNavnChanged(it) },
-            label = { Text(text = "VisitorNavnFelt") },
+            label = { Text(text = "Brugernavn") },
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Gray,
                 unfocusedIndicatorColor = Color.Transparent
@@ -63,17 +50,21 @@ fun TjekInd(navController: NavController){
             shape = RoundedCornerShape(12.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
-    //TjekIndButton(visitorNavn)
         Button(
-            onClick = { navController.navigate("ClientInfo")
-                Log.i("VisitorNavne", "VisitorNavn" + visitorNavn.value)
+            onClick = {
+                navController.navigate("ClientInfo")
+                Toast.makeText(context, "Du er tjekket ind", Toast.LENGTH_LONG).show()
                 val db = Firebase.firestore
-                val visitorNavnn = visitorNavn.value
-                val visitorNavn = hashMapOf(
-                    "VisitorNavn" to visitorNavnn
+                val newVisit = hashMapOf(
+                    "Name" to visitorNavn.value,
+                    "Timestamp" to
+                            DateTimeFormatter
+                                .ofPattern("dd-MM-yyyy HH:mm:ss")
+                                .withZone(ZoneId.of("Europe/Paris"))
+                                .format(Instant.now())
                 )
                 db.collection("VisitorLog")
-                    .add(visitorNavn)
+                    .add(newVisit)
                     .addOnSuccessListener { documentReference ->
                         Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
                     }
@@ -92,60 +83,5 @@ fun TjekInd(navController: NavController){
                 text = stringResource(id = (R.string.tjek_ind))
             )
         }
-    }
-}
-
-@Composable
-fun BorgerNavn(){
-    Text(
-        text = "Borgerens navn"
-    )
-}
-
-@Composable
-fun VisitorNavn(visitorNavn: MutableState<String>, onVisitorNavnChanged: (String) -> Unit) {
-    TextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = visitorNavn.value,
-        onValueChange = { onVisitorNavnChanged(it) },
-        label = { Text(text = "VisitorNavnFelt") },
-        colors = TextFieldDefaults.textFieldColors(
-            focusedIndicatorColor = Color.Gray,
-            unfocusedIndicatorColor = Color.Transparent
-        ),
-        shape = RoundedCornerShape(12.dp),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-    )
-}
-
-@Composable
-fun TjekIndButton(visitorNavn: MutableState<String>) {
-    Button(
-        onClick = {
-            Log.i("VisitorNavne", "VisitorNavn" + visitorNavn.value)
-            val db = Firebase.firestore
-            val visitorNavnn = visitorNavn.value
-            val visitorNavn = hashMapOf(
-                "VisitorNavn" to visitorNavnn
-            )
-            db.collection("VisitorLog")
-                .add(visitorNavn)
-                .addOnSuccessListener { documentReference ->
-                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error adding document", e)
-                }
-        },
-        modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(24.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Gray,
-            contentColor = Color.White
-        )
-    ) {
-        Text(
-            text = stringResource(id = (R.string.tjek_ind))
-        )
     }
 }
