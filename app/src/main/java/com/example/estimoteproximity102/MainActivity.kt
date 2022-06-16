@@ -185,7 +185,7 @@ fun NavDemoHost(navController: NavHostController) {
             OpretNotatView(navController = navController)
         }
         composable("TjekInd"){
-            TjekIndView(navController = navController)
+            TjekInd(navController = navController)
         }
         /*
         composable("Login"){

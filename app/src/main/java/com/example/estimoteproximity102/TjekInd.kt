@@ -24,15 +24,15 @@ private const val TAG = "TjekInd"
 @Preview(showBackground = true)
 @Composable
 fun TjekIndPreview() {
-    TjekInd()
+    //TjekInd()
 }
 @Composable
 fun TjekIndView(navController: NavController){
-    TjekInd()
+    //TjekInd()
 }
 
 @Composable
-fun TjekInd(){
+fun TjekInd(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,9 +46,52 @@ fun TjekInd(){
             visitorNavn.value = newVisitorNavn
         }
     //Brug de øvrige composable funktioner her
-    BorgerNavn()
-    VisitorNavn(visitorNavn, onVisitorNavnChanged)
-    TjekIndButton(visitorNavn)
+    //BorgerNavn()
+        Text(
+            text = "Borgerens navn"
+        )
+    //VisitorNavn(visitorNavn, onVisitorNavnChanged)
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = visitorNavn.value,
+            onValueChange = { onVisitorNavnChanged(it) },
+            label = { Text(text = "VisitorNavnFelt") },
+            colors = TextFieldDefaults.textFieldColors(
+                focusedIndicatorColor = Color.Gray,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(12.dp),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+        )
+    //TjekIndButton(visitorNavn)
+        Button(
+            onClick = { navController.navigate("ClientInfo")
+                Log.i("VisitorNavne", "VisitorNavn" + visitorNavn.value)
+                val db = Firebase.firestore
+                val visitorNavnn = visitorNavn.value
+                val visitorNavn = hashMapOf(
+                    "VisitorNavn" to visitorNavnn
+                )
+                db.collection("VisitorLog")
+                    .add(visitorNavn)
+                    .addOnSuccessListener { documentReference ->
+                        Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "Error adding document", e)
+                    }
+            },
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(24.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Gray,
+                contentColor = Color.White
+            )
+        ) {
+            Text(
+                text = stringResource(id = (R.string.tjek_ind))
+            )
+        }
     }
 }
 
