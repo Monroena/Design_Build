@@ -39,6 +39,7 @@ fun TjekInd() {
             onValueChange = { Brugernavn = it },
             //Brugernavnet er navnet på visitor der skal logges
            // label = { Text(stringResource(R.string.rugerNavn))},
+            label = { Text(stringResource(R.string.brugerNavn))},
             modifier = Modifier.fillMaxWidth()
         )
         //Text(text = )
@@ -49,5 +50,4 @@ fun TjekInd() {
         }
     }
 }
-
 

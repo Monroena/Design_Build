@@ -22,6 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
@@ -74,6 +78,9 @@ class MainActivity : ComponentActivity() {
                     if (userLoggedIn.value){
                         Message(zoneViewModel)
                         ClientScreen() //viser borgere
+                        //Message(zoneEventViewModel)
+                        //ClientScreen() //viser borgere
+                        NavDemo()
                     } else {
                         LoginSide(onUserLoggedIn)
                     }
@@ -160,6 +167,40 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun NavDemo() {
+    val navController = rememberNavController()
+    NavDemoHost(navController)
+}
+
+@Composable
+fun NavDemoHost(navController: NavHostController) {
+    NavHost(
+        navController = navController,
+        startDestination = "ClientScreen"
+    ) {
+        composable("ClientScreen") {
+            ClientScreen(navController = navController)
+        }
+        composable("ClientInfo") {
+            ClientInfoView(navController = navController)
+        }
+        composable("NyNotat"){
+            OpretNotatView(navController = navController)
+        }
+        composable("TjekInd"){
+            TjekIndView(navController = navController)
+        }
+        /*
+        composable("Login"){
+            LoginView(navController = navController)
+        }
+        */
+    }
+
+}
+
+
+@Composable
 fun Message(zoneEventViewModel: ZoneEventViewModel) {
     Text(text = zoneEventViewModel.tag, fontSize = 40.sp)
 }
@@ -170,12 +211,18 @@ fun Message(zoneEventViewModel: ZoneEventViewModel) {
 @Composable
 fun DefaultPreview() {
     EstimoteProximity102Theme {
-
-       // Message("")
+        //Message("Android")
 
     }
 
 
 }
-
-
+//////add///////
+/*
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    StateInComposeTheme {
+        StaffScreen()
+    }
+}

@@ -28,5 +28,9 @@ sealed class TabItem(val title:String,val icons:ImageVector, val screens:Composa
     )
 
 
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> master

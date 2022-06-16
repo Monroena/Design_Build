@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.google.ar.schemas.sceneform.SamplerUsageType.Color
+import androidx.navigation.NavController
 
 
 @Composable
@@ -25,7 +26,7 @@ fun ClientScreen(
 
 
     clientViewModel: ClientViewModel = viewModel(),
-    //navController: NavController
+    navController: NavController
 ) {
     Column{
         Row{
@@ -51,6 +52,12 @@ fun ClientScreen(
         ClientCardList(
             list = clientViewModel.clientRepository.clients
         )
+        Button(onClick = { navController.navigate("ClientInfo") }) {
+            Text(text = "Til ClientInfo - Borger side")
+
+
+        }
+}}
     }
 }
 
