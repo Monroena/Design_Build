@@ -138,7 +138,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
                 },
                 text = { Text(tabItem.title) },
                 icon = { Icon(imageVector = tabItem.icons, contentDescription = null) },
-                selectedContentColor = Color.Green,
+                selectedContentColor = Color.Gray,
                 unselectedContentColor = Color.White,
                 enabled = true
             )
@@ -158,8 +158,7 @@ fun TabContent(tabs: List<TabItem>, pagerState: PagerState) {
 fun HomeScreen() {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -192,8 +191,7 @@ fun ClientInformation() {
 fun LogScreen() {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -207,8 +205,7 @@ fun LogScreen() {
 fun NotesScreen() {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color.White),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

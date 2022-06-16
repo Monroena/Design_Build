@@ -74,8 +74,8 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
                     } else {
                         Log.i("Staff", "Virkede ikke")
                     }
-                    Log.i("Staff", document.data["Email"].toString())
-                    Log.i("Staff", document.data["Kodeord"].toString())
+                    Log.i("Staff", document.data["username"].toString())
+                    Log.i("Staff", document.data["passwird"].toString())
                     // Log.d("Staff", "${document.id} => ${document.data}")
                 }
             }

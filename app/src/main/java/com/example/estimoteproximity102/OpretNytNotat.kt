@@ -23,11 +23,11 @@ import com.google.firebase.ktx.Firebase
 private const val TAG = "PROXIMITY"
 @Composable
 fun OpretNotatView(navController: NavController){
-    OpretNyNotat()
+    OpretNyNotat(navController)
 }
 
 @Composable
-fun OpretNyNotat(){
+fun OpretNyNotat(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,7 +43,7 @@ fun OpretNyNotat(){
 
         Title2()
         Notat(notat, onNotatChanged)
-        OpretNotatButton(notat)
+        OpretNotatButton(notat, navController)
     }
 }
 //stateless
@@ -69,9 +69,10 @@ fun Notat(notat: MutableState<String>, onNotatChanged: (String) -> Unit) {
 }
 
 @Composable
-fun OpretNotatButton(notat: MutableState<String>) {
+fun OpretNotatButton(notat: MutableState<String>, navController: NavController) {
     Button(
         onClick = {
+            navController.navigate("ClientInfo")
             Log.i("Notes", "Notat tekst: " + notat.value)
             val db = Firebase.firestore
             val notatt = notat.value
