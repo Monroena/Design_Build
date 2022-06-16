@@ -12,6 +12,7 @@
     <string name="title_activity_client_info">ClientInfo</string>
     <string name="info">Indtast et notat i følgende felt</string>
     <string name="opret_notat">Opret notat</string>
+    <string name="tjek_ind">Tjek Ind</string>
     <string name="notat">Notatfelt</string>
     <string name="vis_notat">Vis notat</string>
     <string name="se_notat">Se notater</string>

@@ -52,7 +52,8 @@ fun OpretNyNotat(){
         text = stringResource(R.string.info),
     )
 }
-@Composable fun Notat(notat: MutableState<String>, onNotatChanged: (String) -> Unit) {
+@Composable
+fun Notat(notat: MutableState<String>, onNotatChanged: (String) -> Unit) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = notat.value,
@@ -66,20 +67,22 @@ fun OpretNyNotat(){
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
     )
 }
-    @Composable fun OpretNotatButton(notat: MutableState<String>) {
-        Button(
-            onClick = {
-                Log.i("Notes", "Notat tekst: " + notat.value)
-                val db = Firebase.firestore
-                val notatt = notat.value
-                val notat = hashMapOf(
-                    "Notat" to notatt
-                )
-                db.collection("Notes")
-                    .add(notat)
-                    .addOnSuccessListener { documentReference ->
-                        Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-                    }
+
+@Composable
+fun OpretNotatButton(notat: MutableState<String>) {
+    Button(
+        onClick = {
+            Log.i("Notes", "Notat tekst: " + notat.value)
+            val db = Firebase.firestore
+            val notatt = notat.value
+            val notat = hashMapOf(
+                "Notat" to notatt
+            )
+            db.collection("Notes")
+                .add(notat)
+                .addOnSuccessListener { documentReference ->
+                    Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+                }
                     .addOnFailureListener { e ->
                         Log.w(TAG, "Error adding document", e)
                     }

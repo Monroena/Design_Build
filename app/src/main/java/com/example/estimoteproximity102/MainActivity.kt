@@ -43,6 +43,7 @@ import com.example.estimoteproximity102.core.Constants
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.example.estimoteproximity102.ui.theme.LoginSide
 
+
 private const val TAG = "PROXIMITY"
 
 class MainActivity : ComponentActivity() {
@@ -62,8 +63,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             //i følgende er brugeren som udgangspunkt ikke logget ind da value er sat til false.
-            //Hvis userLoggedIn.value fra signInButton-komponentens funktion userloggedind er kørt så værdien true og der vises næste side
-            val userLoggedIn = remember { mutableStateOf(false)}
+            //hvis userLoggedIn.value fra signInButton-komponentens funktion userloggedind er kørt så værdien true og der vises næste side
+            val userLoggedIn = remember { mutableStateOf(false) }
             val onUserLoggedIn = {
                 userLoggedIn.value = true
             }
@@ -78,14 +79,13 @@ class MainActivity : ComponentActivity() {
                     if (userLoggedIn.value){
                         Message(zoneViewModel)
                         ClientScreen() //viser borgere
+                    if (userLoggedIn.value) {
                         //Message(zoneEventViewModel)
                         //ClientScreen() //viser borgere
                         NavDemo()
                     } else {
                         LoginSide(onUserLoggedIn)
                     }
-
-                   // StaffScreen() //viser Staff
 
                 }
             }
@@ -184,19 +184,13 @@ fun NavDemoHost(navController: NavHostController) {
         composable("ClientInfo") {
             ClientInfoView(navController = navController)
         }
-        composable("NyNotat"){
+        composable("NyNotat") {
             OpretNotatView(navController = navController)
         }
-        composable("TjekInd"){
-            TjekIndView(navController = navController)
+        composable("TjekInd") {
+            TjekInd(navController = navController)
         }
-        /*
-        composable("Login"){
-            LoginView(navController = navController)
-        }
-        */
     }
-
 }
 
 
@@ -211,18 +205,6 @@ fun Message(zoneEventViewModel: ZoneEventViewModel) {
 @Composable
 fun DefaultPreview() {
     EstimoteProximity102Theme {
-        //Message("Android")
 
-    }
-
-
-}
-//////add///////
-/*
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    StateInComposeTheme {
-        StaffScreen()
     }
 }

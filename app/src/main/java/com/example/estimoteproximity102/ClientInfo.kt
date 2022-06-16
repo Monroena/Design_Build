@@ -1,6 +1,7 @@
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package com.example.estimoteproximity102
 
-import android.os.Bundle
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,9 +24,7 @@ import androidx.navigation.NavController
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.selects.select
 
-class ClientInfo {}
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -41,23 +40,26 @@ fun ClientInfoView(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar (
-                title = { 
+            TopAppBar(
+                title = {
                     Text(text = "QuickJournal")
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigate("ClientScreen")
+                    IconButton(onClick = {
+                        navController.navigate("ClientScreen")
                         Toast.makeText(
                             context,
                             "tilbage til Borgerliste",
                             Toast.LENGTH_LONG
-                            ).show()
-                    }){
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back")}
+                        ).show()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 }
-                )
+            )
         },
         isFloatingActionButtonDocked = true,
         bottomBar = {
@@ -68,54 +70,43 @@ fun ClientInfoView(navController: NavController) {
             ) {
                 BottomNavigationItem(
                     icon = {
-                           Icon(imageVector = Icons.Outlined.MailOutline,
-                               contentDescription = "Nyt Notat")
+                        Icon(
+                            imageVector = Icons.Outlined.MailOutline,
+                            contentDescription = "Nyt Notat"
+                        )
                     },
                     selectedContentColor = Color.Gray,
-                    onClick = { navController.navigate("NyNotat")},
-                selected = true)
+                    onClick = { navController.navigate("NyNotat") },
+                    selected = true
+                )
 
                 BottomNavigationItem(
                     icon = {
-                        Icon(imageVector = Icons.Outlined.CheckCircle,
-                            contentDescription = "Tjek Ind")
+                        Icon(
+                            imageVector = Icons.Outlined.CheckCircle,
+                            contentDescription = "Tjek Ind"
+                        )
                     },
                     selectedContentColor = Color.Gray,
-                    onClick = { navController.navigate("TjekInd")},
-                    selected = true)
-
-            }
-        }
-        ,
-       /* floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate("TjekInd")
-                    Toast.makeText(
-                    context,
-                    "Tjekker ind",
-                    Toast.LENGTH_LONG).show() }
-            ){
-                Icons.Outlined.CheckCircle
-                Color.Transparent
-                //Text(text = "+")
+                    onClick = { navController.navigate("TjekInd") },
+                    selected = true
+                )
 
             }
         },
-        floatingActionButtonPosition = FabPosition.End,
-
-         */
-        content ={
+        content = {
             Column(
-                modifier = Modifier.fillMaxSize()) {
-            Tabs(
-                tabs = list,
-                pagerState = pagerState
-            )
-            TabContent(
-                tabs = list,
-                pagerState = pagerState
-            )
-        }
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Tabs(
+                    tabs = list,
+                    pagerState = pagerState
+                )
+                TabContent(
+                    tabs = list,
+                    pagerState = pagerState
+                )
+            }
         }
     )
 }
@@ -185,7 +176,7 @@ fun HomeScreen() {
 }
 
 @Composable
-fun ClientInformation(){
+fun ClientInformation() {
     Column() {
         Text(text = "Navn:")
         Text(text = "Klaus Klausen")
@@ -207,7 +198,6 @@ fun LogScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        //TjekInd()
         Text(text = "Log Screen")
         Text(text = "Vis log fra firebase her")
     }
@@ -222,8 +212,7 @@ fun NotesScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      //  SeNyNotat()
-        //OpretNyNotat()
+
         Text(text = "Notes Screen")
         Text(text = "Hent noter fra sub-collection i firebase")
         Text(text = "Opret button til oprettelse af ny note")
@@ -236,12 +225,7 @@ fun NotesScreen() {
 @Composable
 fun DefaultPreview2() {
     EstimoteProximity102Theme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            //MainContent()
-        }
+
     }
 }
 
