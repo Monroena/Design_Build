@@ -31,8 +31,6 @@ import com.example.estimoteproximity102.Clients.ClientScreen
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.example.estimoteproximity102.ui.theme.LoginSide
 
-//import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
-//import dtu.engtech.iabr.stateincompose.ui.theme.StateInComposeTheme
 
 private const val TAG = "PROXIMITY"
 
@@ -66,15 +64,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    if (userLoggedIn.value){
+                    if (userLoggedIn.value) {
                         //Message(zoneEventViewModel)
                         //ClientScreen() //viser borgere
                         NavDemo()
                     } else {
                         LoginSide(onUserLoggedIn)
                     }
-
-                   // StaffScreen() //viser Staff
 
                 }
             }
@@ -124,7 +120,7 @@ class MainActivity : ComponentActivity() {
             }
             .onContextChange {
                 Log.d(TAG, "Change: ${it}")
-            zoneEventViewModel.updateZoneContexts(it)
+                zoneEventViewModel.updateZoneContexts(it)
             }
             .build()
     }
@@ -144,21 +140,6 @@ class MainActivity : ComponentActivity() {
             Toast.LENGTH_SHORT
         ).show()
     }
-    /////////add////
-    /*
-    setContent {
-        StateInComposeTheme {
-            // A surface container using the 'background' color from the theme
-            Surface(
-                //modifier = Modifier.fillMaxSize(),
-                color = MaterialTheme.colors.background
-            ) {
-                StaffScreen()
-            }
-        }
-    }
-
-     */
 }
 
 @Composable
@@ -179,13 +160,13 @@ fun NavDemoHost(navController: NavHostController) {
         composable("ClientInfo") {
             ClientInfoView(navController = navController)
         }
-        /*
-        composable("Login"){
-            LoginView(navController = navController)
+        composable("NyNotat") {
+            OpretNotatView(navController = navController)
         }
-        */
+        composable("TjekInd") {
+            TjekInd(navController = navController)
+        }
     }
-
 }
 
 
@@ -198,20 +179,6 @@ fun Message(zoneEventViewModel: ZoneEventViewModel) {
 @Composable
 fun DefaultPreview() {
     EstimoteProximity102Theme {
-        //Message("Android")
 
     }
-
-
 }
-//////add///////
-/*
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    StateInComposeTheme {
-        StaffScreen()
-    }
-}
-
- */

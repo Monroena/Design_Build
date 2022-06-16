@@ -55,7 +55,7 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
     )
 }
 
-@Composable fun SignInButton(email: MutableState<String>, password: MutableState<String>, onUserLoggedIn: () -> Unit){
+@Composable fun SignInButton(username: MutableState<String>, password: MutableState<String>, onUserLoggedIn: () -> Unit){
 //    var buttonColor = Color.Gray
 //    if (email.value == "hej"){
 //        buttonColor = Color.Green
@@ -63,12 +63,12 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
 
     Button(
         onClick = {
-            Log.i("Staff", "Email value: " + email.value)
+            Log.i("Staff", "Username value: " + username.value)
             Log.i("Staff", "Password value " + password.value)
             val db = Firebase.firestore
             db.collection("staff").get().addOnSuccessListener{ result ->
                 for (document in result) {
-                    if (email.value == document.data["Email"] && password.value == document.data["Kodeord"]){
+                    if (username.value == document.data["username"] && password.value == document.data["password"]){
                         Log.i("Staff", "Virkede!")
                         onUserLoggedIn()
                     } else {
