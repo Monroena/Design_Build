@@ -85,25 +85,7 @@ fun ClientInfoView(navController: NavController) {
                     selected = true)
 
             }
-        }
-        ,
-       /* floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate("TjekInd")
-                    Toast.makeText(
-                    context,
-                    "Tjekker ind",
-                    Toast.LENGTH_LONG).show() }
-            ){
-                Icons.Outlined.CheckCircle
-                Color.Transparent
-                //Text(text = "+")
-
-            }
         },
-        floatingActionButtonPosition = FabPosition.End,
-
-         */
         content ={
             Column(
                 modifier = Modifier.fillMaxSize()) {
