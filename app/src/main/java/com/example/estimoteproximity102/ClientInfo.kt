@@ -1,6 +1,7 @@
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 package com.example.estimoteproximity102
 
-import android.os.Bundle
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,9 +24,7 @@ import androidx.navigation.NavController
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.selects.select
 
-class ClientInfo {}
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -189,7 +188,6 @@ fun LogScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        //TjekInd()
         Text(text = "Log Screen")
         Text(text = "Vis log fra firebase her")
     }
@@ -217,11 +215,6 @@ fun NotesScreen() {
 @Composable
 fun DefaultPreview2() {
     EstimoteProximity102Theme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            //MainContent()
-        }
+
     }
 }
