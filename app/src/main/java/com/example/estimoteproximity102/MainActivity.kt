@@ -1,50 +1,34 @@
 package com.example.estimoteproximity102
 
 import android.os.Bundle
-import android.service.autofill.OnClickAction
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
-import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_ID
-import com.example.estimoteproximity102.Beacons.CloudCredentials.APP_TOKEN
-import com.example.estimoteproximity102.Beacons.ZoneEventViewModel
-import com.example.estimoteproximity102.Beacons.ZoneName
-import com.example.estimoteproximity102.Clients.ClientScreen
+import com.example.estimoteproximity102.dto.CloudCredentials.APP_ID
+import com.example.estimoteproximity102.dto.CloudCredentials.APP_TOKEN
+import com.example.estimoteproximity102.dto.ZoneName
 import com.example.estimoteproximity102.Clients.ClientScreenView
-import com.example.estimoteproximity102.Clients.ClientViewModel
-import com.example.estimoteproximity102.Clients.Clients
-import com.example.estimoteproximity102.core.Constants
+import com.example.estimoteproximity102.dto.Constants
 
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.example.estimoteproximity102.ui.theme.LoginSide
-import com.google.gson.Gson
 
 private const val TAG = "PROXIMITY"
 
@@ -171,13 +155,6 @@ fun NavDemo() {
     val navController = rememberNavController()
     NavDemoHost(navController)
 }
-@Composable
-fun ClientScreenView2(navController: NavController) {
-    val clientViewModel= ClientScreenView(navController = navController )
-}
-
-
-
 
 @Composable
 fun NavDemoHost(navController: NavHostController) {
@@ -188,17 +165,16 @@ fun NavDemoHost(navController: NavHostController) {
     ) {
         composable("ClientScreen") {
             clientViewModel
-            //ClientScreenView2(navController = navController)
-
+            //ClientScreenView(navController = navController)
         }
         composable("ClientInfo") {
             ClientInfoView(navController = navController)
         }
-        composable("NyNotat") {
-            OpretNotatView(navController = navController)
+        composable("CreateNote") {
+            CreateNoteView(navController = navController)
         }
-        composable("TjekInd") {
-            TjekInd(navController = navController)
+        composable("CheckIn") {
+            CheckIn(navController = navController)
         }
     }
 }
@@ -208,7 +184,6 @@ fun NavDemoHost(navController: NavHostController) {
 fun Message(zoneEventViewModel: ZoneEventViewModel) {
     Text(text = zoneEventViewModel.tag, fontSize = 40.sp)
 }
-
 
 
 @Preview(showBackground = true)

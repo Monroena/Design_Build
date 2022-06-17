@@ -2,19 +2,19 @@ package com.example.estimoteproximity102.Clients
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-@Composable
-fun ClientScreenView(navController: NavController){
+import com.example.estimoteproximity102.ClientViewModel
 
-    //val clientViewModel= ClientScreen(navController = navController )
-    ClientScreen(navController =navController)
+@Composable
+fun ClientScreenView(navController: NavController) {
+
+    ClientScreen(navController = navController)
 }
 
 @Composable
@@ -23,31 +23,25 @@ fun ClientScreen(
     navController: NavController
 ) {
 
-    Column{
-        Row{
+    Column {
+        Row {
 
             Text("${clientViewModel.clientRepository.clients.size}")
-            Spacer(modifier = Modifier
-                .width(200.dp)
-                .padding(vertical = 16.dp, horizontal = 45.dp)
-                .background(Color.Black)
-
+            Spacer(
+                modifier = Modifier
+                    .width(200.dp)
+                    .padding(vertical = 16.dp, horizontal = 45.dp)
+                    .background(Color.Black)
             )
         }
-
         Spacer(modifier = Modifier.width(200.dp))
         ClientCardList(
             navController,
             list = clientViewModel.clientRepository.clients
         )
 
-
-}}
-
-
-
-
-
+    }
+}
 
 
 /*

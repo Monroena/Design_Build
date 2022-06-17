@@ -47,35 +47,23 @@ android {
 ////////////Add///////////
 apply plugin: 'com.android.application'
 
-
 // Add this line
 apply plugin: 'com.google.gms.google-services'
 
 
-
-dependencies {
-    // Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:30.1.0')
-
-
-
-    // Add the dependencies for the desired Firebase products
-    // https://firebase.google.com/docs/android/setup#available-libraries
-}
-////////////////////////////
 dependencies {
 
     implementation 'com.estimote:proximity-sdk:1.0.5'
     implementation 'com.estimote:mustard:0.2.1'
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
     implementation 'androidx.activity:activity-compose:1.4.0'
     implementation 'com.google.ar.sceneform:sceneform-base:1.17.1'
-    implementation 'com.google.firebase:firebase-firestore-ktx:23.0.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.1.2'
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
     implementation 'com.google.firebase:firebase-auth:21.0.5'
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.5'
@@ -94,11 +82,10 @@ dependencies {
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
 
-
-        // Add the dependency for the Firebase SDK for Google Analytics
-        // When using the BoM, don't specify versions in Firebase dependencies
-        implementation 'com.google.firebase:firebase-analytics-ktx'
-        implementation "com.google.firebase:firebase-firestore-ktx"
+    // Add the dependency for the Firebase SDK for Google Analytics
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation "com.google.firebase:firebase-firestore-ktx"
 
     // Tabview
     implementation "androidx.paging:paging-compose:1.0.0-alpha15"
@@ -109,10 +96,9 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager-indicators:0.23.0"
 
     //navigation
-    def nav_version = "2.4.2"
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation"androidx.navigation:navigation-compose:2.4.2"
 
     //Gson
-    implementation("com.google.code.gson:gson:2.8.6")
+    implementation"com.google.code.gson:gson:2.8.9"
 
 }

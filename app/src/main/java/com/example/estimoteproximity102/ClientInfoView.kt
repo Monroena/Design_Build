@@ -24,7 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.estimoteproximity102.Clients.Notes
+import com.example.estimoteproximity102.dto.TabItem
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.google.accompanist.pager.*
 import com.google.firebase.firestore.ktx.firestore
@@ -83,7 +83,7 @@ fun ClientInfoView(navController: NavController) {
                     },
                     unselectedContentColor = Color.White,
                     selectedContentColor = Color.White,
-                    onClick = { navController.navigate("NyNotat") },
+                    onClick = { navController.navigate("CreateNote") },
                     selected = true
                 )
 
@@ -96,7 +96,7 @@ fun ClientInfoView(navController: NavController) {
                     },
                     unselectedContentColor = Color.White,
                     selectedContentColor = Color.White,
-                    onClick = { navController.navigate("TjekInd") },
+                    onClick = { navController.navigate("CheckIn") },
                     selected = true
                 )
 
@@ -171,33 +171,34 @@ fun HomeScreen() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val info = remember {mutableListOf<String>().toMutableStateList()}
-        val onInfoChanged  = { newInfo: ArrayList<String> ->
+        val info = remember { mutableListOf<String>().toMutableStateList() }
+        val onInfoChanged = { newInfo: ArrayList<String> ->
             info.clear()
             for (inf in newInfo) {
                 info.add(inf)
             }
         }
-            HentInfo(onInfoChanged)
-            SeInfo(info.toMutableStateList())
+        HentInfo(onInfoChanged)
+        SeInfo(info.toMutableStateList())
 
     }
 }
+/*
+@Composable
+fun ClientInformation() {
+    /*val name = remember{ mutableStateOf("")}
+    val birthday = remember{ mutableStateOf("")}
+    val adress = remember{ mutableStateOf("")}
 
-    @Composable
-    fun ClientInformation() {
-        /*val name = remember{ mutableStateOf("")}
-        val birthday = remember{ mutableStateOf("")}
-        val adress = remember{ mutableStateOf("")}
 
-
-        Column() {
-            Text(text = name.value )
-            Text(text = birthday.value)
-            Text(text = adress.value)
+    Column() {
+        Text(text = name.value )
+        Text(text = birthday.value)
+        Text(text = adress.value)
 */
-            //HentInfo()
-        }
+    //HentInfo()
+}
+*/
 
 
 @Composable
@@ -224,11 +225,12 @@ fun NotesScreen() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-            SeNyNotat()
-        }
+        SeNyNotat()
     }
+}
+
 @Composable
-fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit){
+fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit) {
     Button(
         onClick = {
             Log.i("clients", "Info tekst: " + 515)
@@ -275,8 +277,8 @@ fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit){
 
 
 @Composable
-fun SeInfo(seInfo: MutableList<String>){
-    for (inf in seInfo){
+fun SeInfo(seInfo: MutableList<String>) {
+    for (inf in seInfo) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = inf,

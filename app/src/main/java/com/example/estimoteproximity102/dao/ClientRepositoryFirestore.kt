@@ -1,11 +1,9 @@
-package com.example.estimoteproximity102.model
+package com.example.estimoteproximity102.dao
 
 import android.util.Log
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.toMutableStateList
-import com.example.estimoteproximity102.Clients.Clients
-import com.example.estimoteproximity102.Clients.ClientRepository
-import com.example.estimoteproximity102.core.Constants
+import com.example.estimoteproximity102.dto.Constants
+import com.example.estimoteproximity102.dto.Clients
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ClientRepositoryFirestore : ClientRepository {
@@ -31,13 +29,10 @@ class ClientRepositoryFirestore : ClientRepository {
                         Constants.FIREBASETAG,
                         "${document.id} => ${document.data}"
                     )
-
                 }
             }.addOnFailureListener { exception ->
                 Log.w(Constants.FIREBASETAG, "Error getting documents: ", exception)
             }
-
-
     }
 
     override fun getClients() {
@@ -56,8 +51,6 @@ class ClientRepositoryFirestore : ClientRepository {
                         Constants.FIREBASETAG,
                         "${document.id} => ${document.data}"
                     )
-
-
                 }
             }
             .addOnFailureListener { exception ->
@@ -70,7 +63,6 @@ class ClientRepositoryFirestore : ClientRepository {
     }
 
 
-
     override fun addListener() {
         FirebaseFirestore.getInstance().collection(Constants.CLIENTS)
             .addSnapshotListener { snapshot, e ->
@@ -78,7 +70,6 @@ class ClientRepositoryFirestore : ClientRepository {
                     Log.w(Constants.FIREBASETAG, "Listen failed.", e)
                     //return@addSnapshotListener
                 }
-
                 if (snapshot != null) {
                     clients = snapshot.toObjects(Clients::class.java).toMutableStateList()
                     logClients("Initial read")

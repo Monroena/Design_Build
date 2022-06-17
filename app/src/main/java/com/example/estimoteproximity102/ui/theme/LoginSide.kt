@@ -99,7 +99,7 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = password.value, onValueChange = { onPasswordChanged(it) },
-        label = {Text(text= stringResource(R.string.kodeord))},
+        label = {Text(text= stringResource(R.string.password))},
                 colors=TextFieldDefaults.textFieldColors(
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent
@@ -113,7 +113,7 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
             modifier = Modifier.fillMaxWidth(),
             value = email.value,
             onValueChange = { onEmailChanged(it)},
-            label = {Text(text= stringResource(R.string.email))},
+            label = {Text(text= stringResource(R.string.username))},
             colors=TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Yellow,
                 unfocusedIndicatorColor = Color.Transparent
