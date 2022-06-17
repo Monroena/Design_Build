@@ -59,7 +59,7 @@ fun GetClientData(onInfoChanged: (ArrayList<String>) -> Unit) {
         )
     ) {
         Text(
-            text = stringResource(id = (R.string.se_info))
+            text = stringResource(id = (R.string.view_info))
         )
 
     }

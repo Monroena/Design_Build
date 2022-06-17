@@ -48,7 +48,7 @@ fun ViewNotes() {
 @Composable
 fun NoteIntroduction() {
     Text(
-        text = stringResource(R.string.show_note),
+        text = stringResource(R.string.show_notes),
         )
 }
 
@@ -130,7 +130,7 @@ fun SeNotatButton(inputId: MutableState<String>, onNotesChanged: (ArrayList<Stri
         )
     ) {
         Text(
-            text = stringResource(id = (R.string.se_notat))
+            text = stringResource(id = (R.string.view_notes))
         )
     }
 }

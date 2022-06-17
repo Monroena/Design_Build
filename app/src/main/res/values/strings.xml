@@ -1,23 +1,15 @@
 <resources>
-    <string name="app_name">EstimoteProximity102</string>
+    <string name="app_name">QuickJournal</string>
     <string name="sign_in_welcome_text">Velkommen til QuickJournal!</string>
     <string name="sign_in">Login</string>
     <string name="username">Brugernavn</string>
     <string name="password">Kodeord</string>
-    <string name="title_activity_tjek_ind">TjekIndActivity</string>
-    <string name="borger_navn">BorgerNavn</string>
-    <string name="title_activity_for_sjov">ForSjovActivity</string>
-    <string name="borgerNavn">Borgernavn</string>
-    <string name="brugerNavn">Brugernavn</string>
-    <string name="title_activity_client_info">ClientInfo</string>
     <string name="info">Indtast et notat i følgende felt</string>
-    <string name="opret_notat">Opret notat</string>
+    <string name="create_note">Opret notat</string>
     <string name="check_in">Tjek Ind</string>
     <string name="notat">Notatfelt</string>
-    <string name="vis_notat">Vis notat</string>
-    <string name="se_notat">Se notater</string>
-    <string name="input_tekst">Indtast ID</string>
-    <string name="se_info">Se informationer om borger</string>
+    <string name="view_notes">Se notater</string>
+    <string name="view_info">Se informationer om borger</string>
     <string name="input_beaconTag">Indtast et beaconTag</string>
-    <string name="show_note">Vis notater ud fra borgerens beaconTag</string>
+    <string name="show_notes">Vis notater ud fra borgerens beaconTag</string>
 </resources>

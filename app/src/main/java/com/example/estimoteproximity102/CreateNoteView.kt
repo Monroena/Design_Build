@@ -83,12 +83,12 @@ fun CreateNoteButton(notat: MutableState<String>, navController: NavController) 
             Log.i("Notes", "Notat tekst: " + notat.value)
             val db = Firebase.firestore
             val noteWrited = notat.value
-            val notat = hashMapOf(
+            val note = hashMapOf(
                 "note" to noteWrited,
                 "beaconTag" to "500"
             )
             db.collection("Notes")
-                .add(notat)
+                .add(note)
                 .addOnSuccessListener { documentReference ->
                     Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
                 }
@@ -107,7 +107,7 @@ fun CreateNoteButton(notat: MutableState<String>, navController: NavController) 
         )
     ) {
         Text(
-            text = stringResource(id = (R.string.opret_notat))
+            text = stringResource(id = (R.string.create_note))
         )
     }
 }
