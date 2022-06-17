@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.estimoteproximity102.R
 import com.google.firebase.firestore.ktx.firestore
@@ -103,7 +104,8 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent
                 ),
-        shape = RoundedCornerShape(9.dp)
+        shape = RoundedCornerShape(9.dp),
+        visualTransformation = PasswordVisualTransformation()
     )
 }
 @Composable fun Email(email: MutableState<String>, onEmailChanged: (String) -> Unit){

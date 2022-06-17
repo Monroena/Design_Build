@@ -5,16 +5,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.textInputServiceFactory
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.estimoteproximity102.Clients.Notes
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.math.log
@@ -28,7 +27,13 @@ private const val TAG = "PROXIMITY"
             .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ){
-        val notatFelt = remember { mutableStateOf("")}
+        val notes = remember {mutableListOf<String>().toMutableStateList()}
+        val onNotesChanged  = { newNotes: ArrayList<String> ->
+            notes.clear()
+            for (note in newNotes){
+                notes.add(note)
+            }
+        }
         val seNotat = remember { mutableStateOf("") }
         val onSeNotatChanged = { newSeNotat: String ->
             //Test af opdatering af parentkomponentens state i log
@@ -38,7 +43,8 @@ private const val TAG = "PROXIMITY"
 
         Title3()
         IndtastID(seNotat, onSeNotatChanged)
-        SeNotatButton(seNotat,notatFelt)
+        SeNotatButton(seNotat, onNotesChanged)
+        SeNotat(notes.toMutableStateList())
     }
 }
 //stateless
@@ -46,6 +52,7 @@ private const val TAG = "PROXIMITY"
 fun Title3(){
     Text(
         text = stringResource(R.string.vis_notat),
+
     )
 }
 @Composable
@@ -62,30 +69,61 @@ fun IndtastID(seNotat: MutableState<String>, onSeNotatChanged: (String) -> Unit)
         shape = RoundedCornerShape(12.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
     )
-    // "6PR953um57HDlv5tEK82"
 }
 @Composable
-fun SeNotatButton(seNotat: MutableState<String>, notatFelt: MutableState<String>) {
+fun SeNotat(seNotes: MutableList<String>){
+    Log.d("HEEY", seNotes.toString())
+    for (note in seNotes){
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = note,
+        )
+    }
+}
+
+@Composable
+fun SeNotatButton(seNotat: MutableState<String>, onNotesChanged: (ArrayList<String>) -> Unit) {
     Button(
         onClick = {
-            Log.i("Notes", "Notat tekst: " + seNotat.value)
+            Log.i("Clients", "Notat tekst: " + seNotat.value)
             val db = Firebase.firestore
-            val documentPath = seNotat.value
+            val ID = seNotat.value
 
-            val docRef = db.collection("clients").document("PRQEVOfysywaOI0P5DdJ").collection("notes").document("fY3H9ufpRuTR1h1taT1n")
-            docRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+            db.collection("Notes").whereEqualTo("beaconTag",ID)
+                .get()
+                .addOnSuccessListener { result ->
+                    val notater = ArrayList<String>()
 
 
-                    } else {
-                        Log.d(TAG, "No such document")
+                    Log.d(TAG, result.toString())
+                    for (document in result) {
+                        notater.add(document.data.get("Notat").toString())
                     }
+
+                    onNotesChanged(notater)
+                    Log.d(TAG, notater.toString())
                 }
                 .addOnFailureListener { exception ->
-                    Log.d(TAG, "get failed with ", exception)
+                    Log.d(TAG, "Error getting documents: ", exception)
                 }
+
+            //*/
+                //Følgende kode virker således at ud fra et bestemt indtastede document-ID hentes info fra en bestemt refDoc.
+                /*
+                    val docRef = db.collection("Notes").document("6PR953um57HDlv5tEK82")
+                    docRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document != null && ID == document.data?.get("beaconTag") ?: ID) {
+                                Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                            } else {
+                                Log.d(TAG, "No such document")
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d(TAG, "get failed with ", exception)
+                        }
+
+                 */
         },
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(24.dp),
@@ -99,6 +137,13 @@ fun SeNotatButton(seNotat: MutableState<String>, notatFelt: MutableState<String>
         )
     }
 }
+
+fun logCatNote(){
+
+}
+
+
+
 
 
 

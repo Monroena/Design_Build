@@ -2,11 +2,10 @@
 
 package com.example.estimoteproximity102
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -19,12 +18,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.estimoteproximity102.Clients.Notes
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.google.accompanist.pager.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
+private const val TAG = "PROXIMITY"
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -75,6 +80,7 @@ fun ClientInfoView(navController: NavController) {
                             contentDescription = "Nyt Notat"
                         )
                     },
+                    unselectedContentColor = Color.White,
                     selectedContentColor = Color.Gray,
                     onClick = { navController.navigate("NyNotat") },
                     selected = true
@@ -87,6 +93,7 @@ fun ClientInfoView(navController: NavController) {
                             contentDescription = "Tjek Ind"
                         )
                     },
+                    unselectedContentColor = Color.White,
                     selectedContentColor = Color.Gray,
                     onClick = { navController.navigate("TjekInd") },
                     selected = true
@@ -138,7 +145,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
                 },
                 text = { Text(tabItem.title) },
                 icon = { Icon(imageVector = tabItem.icons, contentDescription = null) },
-                selectedContentColor = Color.Gray,
+                selectedContentColor = Color.Green,
                 unselectedContentColor = Color.White,
                 enabled = true
             )
@@ -158,40 +165,39 @@ fun TabContent(tabs: List<TabItem>, pagerState: PagerState) {
 fun HomeScreen() {
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Navn:")
-        Text(text = "Klaus Klausen")
-        Text(text = "Fødselsdato")
-        Text(text = "10 nov 1933")
-        Text(text = "Adresse:")
-        Text(text = "Borgervej 122")
-        Text(text = "Hent data fra firebase ved relevant tag")
+        ClientInformation()
 
     }
 }
 
-@Composable
-fun ClientInformation() {
-    Column() {
-        Text(text = "Navn:")
-        Text(text = "Klaus Klausen")
-        Text(text = "Fødselsdato")
-        Text(text = "10 nov 1933")
-        Text(text = "Adresse:")
-        Text(text = "Borgervej 122")
-        Text(text = "Hent data fra firebase ved relevant tag")
-    }
-}
+    @Composable
+    fun ClientInformation() {
+        /*val name = remember{ mutableStateOf("")}
+        val birthday = remember{ mutableStateOf("")}
+        val adress = remember{ mutableStateOf("")}
+
+
+        Column() {
+            Text(text = name.value )
+            Text(text = birthday.value)
+            Text(text = adress.value)
+*/
+            HentInfo()
+        }
+
 
 @Composable
 fun LogScreen() {
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -205,18 +211,49 @@ fun LogScreen() {
 fun NotesScreen() {
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Notes Screen")
-        Text(text = "Hent noter fra sub-collection i firebase")
-        Text(text = "Opret button til oprettelse af ny note")
+            SeNyNotat()
+            //OpretNyNotat()
+
+        }
+    }
+@Composable
+fun HentInfo(){
+    Button(
+        onClick = {
+            Log.i("clients", "Info tekst: " + 515)
+            val db = Firebase.firestore
+            val ID = "515"
+
+            db.collection("clients").whereEqualTo("beaconTag", ID)
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d(TAG, "${document.id} => ${document.data}")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "Error getting documents: ", exception)
+                }
+        },
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(24.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Gray,
+            contentColor = Color.White
+        )
+    ) {
+        Text(
+            text = stringResource(id = (R.string.se_info))
+        )
 
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

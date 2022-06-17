@@ -17,4 +17,5 @@
     <string name="vis_notat">Vis notat</string>
     <string name="se_notat">Se notater</string>
     <string name="input_tekst">Indtast ID</string>
+    <string name="se_info">Se informationer om borger</string>
 </resources>
