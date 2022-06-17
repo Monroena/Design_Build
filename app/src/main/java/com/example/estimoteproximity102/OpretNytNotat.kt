@@ -22,19 +22,20 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 private const val TAG = "PROXIMITY"
+
 @Composable
-fun OpretNotatView(navController: NavController){
+fun OpretNotatView(navController: NavController) {
     OpretNyNotat(navController)
 }
 
 @Composable
-fun OpretNyNotat(navController: NavController){
+fun OpretNyNotat(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color =  MaterialTheme.colors.background),
+            .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.spacedBy(12.dp)
-    ){
+    ) {
         val notat = remember { mutableStateOf("") }
         val onNotatChanged = { newNotat: String ->
             //Test af opdatering af parentkomponentens state i log
@@ -47,16 +48,21 @@ fun OpretNyNotat(navController: NavController){
         OpretNotatButton(notat, navController)
     }
 }
+
 //stateless
-@Composable fun Title2(){
+@Composable
+fun Title2() {
     Text(
         text = stringResource(R.string.info),
     )
 }
+
 @Composable
 fun Notat(notat: MutableState<String>, onNotatChanged: (String) -> Unit) {
     TextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp),
         value = notat.value,
         onValueChange = { onNotatChanged(it) },
         label = { Text(text = stringResource(R.string.notat)) },
@@ -85,20 +91,22 @@ fun OpretNotatButton(notat: MutableState<String>, navController: NavController) 
                 .addOnSuccessListener { documentReference ->
                     Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
                 }
-                    .addOnFailureListener { e ->
-                        Log.w(TAG, "Error adding document", e)
-                    }
-            },
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error adding document", e)
+                }
+        },
 
-            modifier = Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(24.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Gray,
-                contentColor = Color.White
-            )
-        ) {
-            Text(
-                text = stringResource(id = (R.string.opret_notat))
-            )
-        }
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp),
+        contentPadding = PaddingValues(24.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Gray,
+            contentColor = Color.White
+        )
+    ) {
+        Text(
+            text = stringResource(id = (R.string.opret_notat))
+        )
     }
+}

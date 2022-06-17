@@ -28,7 +28,7 @@ fun TjekInd(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color =  MaterialTheme.colors.background),
+            .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         val context = LocalContext.current
@@ -40,7 +40,9 @@ fun TjekInd(navController: NavController) {
             text = "Borgerens navn"
         )
         TextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
             value = visitorNavn.value,
             onValueChange = { onVisitorNavnChanged(it) },
             label = { Text(text = "Brugernavn") },
@@ -73,7 +75,9 @@ fun TjekInd(navController: NavController) {
                         Log.w(TAG, "Error adding document", e)
                     }
             },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp),
             contentPadding = PaddingValues(24.dp),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Gray,
