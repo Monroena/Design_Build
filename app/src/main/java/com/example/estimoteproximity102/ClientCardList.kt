@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.estimoteproximity102.dto.Constants
+import com.example.estimoteproximity102.dto.FirebaseConstants
 import com.example.estimoteproximity102.dto.Clients
 
 @Composable
@@ -15,7 +15,7 @@ fun ClientCardList(
     list: List<Clients>,
     modifier: Modifier = Modifier
 ) {
-    Log.d(Constants.FIREBASETAG, "ClientList size: ${list.size}")
+    Log.d(FirebaseConstants.FIREBASETAG, "ClientList size: ${list.size}")
     LazyColumn(
         modifier = modifier
     ) {

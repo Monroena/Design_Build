@@ -12,13 +12,13 @@ import androidx.navigation.NavController
 import com.example.estimoteproximity102.ClientViewModel
 
 @Composable
-fun ClientScreenView(navController: NavController) {
+fun ClientListView(navController: NavController) {
 
-    ClientScreen(navController = navController)
+    ClientList(navController = navController)
 }
 
 @Composable
-fun ClientScreen(
+fun ClientList(
     clientViewModel: ClientViewModel = viewModel(),
     navController: NavController
 ) {

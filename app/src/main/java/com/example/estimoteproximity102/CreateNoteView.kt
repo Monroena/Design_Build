@@ -79,7 +79,7 @@ fun Notat(notat: MutableState<String>, onNotatChanged: (String) -> Unit) {
 fun CreateNoteButton(notat: MutableState<String>, navController: NavController) {
     Button(
         onClick = {
-            navController.navigate("ClientInfo")
+            navController.navigate("ClientPage")
             Log.i("Notes", "Notat tekst: " + notat.value)
             val db = Firebase.firestore
             val noteWrited = notat.value

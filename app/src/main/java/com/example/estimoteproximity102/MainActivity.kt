@@ -23,10 +23,10 @@ import androidx.navigation.compose.rememberNavController
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
-import com.example.estimoteproximity102.Clients.ClientScreenView
+import com.example.estimoteproximity102.Clients.ClientListView
 import com.example.estimoteproximity102.dto.CloudCredentials.APP_ID
 import com.example.estimoteproximity102.dto.CloudCredentials.APP_TOKEN
-import com.example.estimoteproximity102.dto.Constants
+import com.example.estimoteproximity102.dto.FirebaseConstants
 import com.example.estimoteproximity102.dto.ZoneName
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.example.estimoteproximity102.ui.theme.LoginView
@@ -94,7 +94,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun startProximityObservation() {
-        Log.d(Constants.BEACONLOGTAG, "StartObserving")
+        Log.d(FirebaseConstants.BEACONLOGTAG, "StartObserving")
         proximityObserver = ProximityObserverBuilder(applicationContext, cloudCredentials)
             .onError(displayToastAboutError)
             .withTelemetryReportingDisabled()
@@ -160,17 +160,17 @@ fun NavDemo() {
 
 @Composable
 fun NavDemoHost(navController: NavHostController) {
-    val clientViewModel = ClientScreenView(navController = navController) //Zakir
+    val clientViewModel = ClientListView(navController = navController) //Zakir
     NavHost(
         navController = navController,
-        startDestination = "ClientScreen"
+        startDestination = "ClientList"
     ) {
-        composable("ClientScreen") {
+        composable("ClientList") {
             clientViewModel
             //ClientScreenView(navController = navController)
         }
-        composable("ClientInfo") {
-            ClientInfoView(navController = navController)
+        composable("ClientPage") {
+            ClientPageView(navController = navController)
         }
         composable("CreateNote") {
             CreateNoteView(navController = navController)

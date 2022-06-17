@@ -20,7 +20,7 @@ class InfoView {
 private const val TAG = "PROXIMITY"
 
 @Composable
-fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit) {
+fun GetClientData(onInfoChanged: (ArrayList<String>) -> Unit) {
     Button(
         onClick = {
             Log.i("clients", "Info tekst: " + 515)
@@ -67,7 +67,7 @@ fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit) {
 
 
 @Composable
-fun SeInfo(seInfo: MutableList<String>) {
+fun ShowClientData(seInfo: MutableList<String>) {
     for (inf in seInfo) {
         Text(
             modifier = Modifier.fillMaxWidth(),

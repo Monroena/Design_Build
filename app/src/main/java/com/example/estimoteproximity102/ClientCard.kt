@@ -23,7 +23,7 @@ fun ClientCard(
                 .fillMaxWidth()
                 .background(color = Color.Transparent),
 
-            onClick = { navController.navigate("ClientInfo") }) {
+            onClick = { navController.navigate("ClientPage") }) {
 
             Column() {
                 Text(

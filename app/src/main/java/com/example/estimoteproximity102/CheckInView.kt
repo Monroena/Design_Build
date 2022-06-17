@@ -57,7 +57,7 @@ fun CheckIn(navController: NavController) {
         )
         Button(
             onClick = {
-                navController.navigate("ClientInfo")
+                navController.navigate("ClientPage")
                 Toast.makeText(context, "Du er tjekket ind", Toast.LENGTH_LONG).show()
                 val db = Firebase.firestore
                 val newVisit = hashMapOf(

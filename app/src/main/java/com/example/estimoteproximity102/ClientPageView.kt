@@ -2,7 +2,6 @@
 
 package com.example.estimoteproximity102
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,22 +19,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.estimoteproximity102.dto.TabItem
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.google.accompanist.pager.*
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 //private const val TAG = "PROXIMITY"
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun ClientInfoView(navController: NavController) {
+fun ClientPageView(navController: NavController) {
     val context = LocalContext.current
     val list = listOf(
         TabItem.Info,
@@ -52,10 +47,10 @@ fun ClientInfoView(navController: NavController) {
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        navController.navigate("ClientScreen")
+                        navController.navigate("ClientList")
                         Toast.makeText(
                             context,
-                            "tilbage til Borgerliste",
+                            "tilbage til listevisning af borgere",
                             Toast.LENGTH_LONG
                         ).show()
                     }) {
@@ -180,28 +175,11 @@ fun HomeScreen() {
                 info.add(inf)
             }
         }
-        HentInfo(onInfoChanged)
-        SeInfo(info.toMutableStateList())
+        GetClientData(onInfoChanged)
+        ShowClientData(info.toMutableStateList())
 
     }
 }
-/*
-@Composable
-fun ClientInformation() {
-    /*val name = remember{ mutableStateOf("")}
-    val birthday = remember{ mutableStateOf("")}
-    val adress = remember{ mutableStateOf("")}
-
-
-    Column() {
-        Text(text = name.value )
-        Text(text = birthday.value)
-        Text(text = adress.value)
-*/
-    //HentInfo()
-}
-*/
-
 
 @Composable
 fun LogScreen() {
@@ -230,6 +208,24 @@ fun NotesScreen() {
         ViewNotes()
     }
 }
+
+/*
+@Composable
+fun ClientInformation() {
+    /*val name = remember{ mutableStateOf("")}
+    val birthday = remember{ mutableStateOf("")}
+    val adress = remember{ mutableStateOf("")}
+
+
+    Column() {
+        Text(text = name.value )
+        Text(text = birthday.value)
+        Text(text = adress.value)
+*/
+    //HentInfo()
+}
+*/
+
 /*
 @Composable
 fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit) {

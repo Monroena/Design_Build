@@ -1,6 +1,6 @@
 package com.example.estimoteproximity102.dto
 
-object Constants {
+object FirebaseConstants {
     //Firestore
     const val STAFF = "staff"
     const val ZONETAG = "beaconTag"
