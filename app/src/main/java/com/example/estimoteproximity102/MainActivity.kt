@@ -7,7 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,14 +23,13 @@ import androidx.navigation.compose.rememberNavController
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
+import com.example.estimoteproximity102.Clients.ClientScreenView
 import com.example.estimoteproximity102.dto.CloudCredentials.APP_ID
 import com.example.estimoteproximity102.dto.CloudCredentials.APP_TOKEN
-import com.example.estimoteproximity102.dto.ZoneName
-import com.example.estimoteproximity102.Clients.ClientScreenView
 import com.example.estimoteproximity102.dto.Constants
-
+import com.example.estimoteproximity102.dto.ZoneName
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
-import com.example.estimoteproximity102.ui.theme.LoginSide
+import com.example.estimoteproximity102.ui.theme.LoginView
 
 private const val TAG = "PROXIMITY"
 
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             //i følgende er brugeren som udgangspunkt ikke logget ind da value er sat til false.
             //Hvis userLoggedIn.value fra signInButton-komponentens funktion userloggedind er kørt så værdien true og der vises næste side
-            val userLoggedIn = remember { mutableStateOf(false)}
+            val userLoggedIn = remember { mutableStateOf(false) }
             val onUserLoggedIn = {
                 userLoggedIn.value = true
             }
@@ -59,17 +60,18 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background) {
+                    color = MaterialTheme.colors.background
+                ) {
 
 
-                    if (userLoggedIn.value){
+                    if (userLoggedIn.value) {
                         //Message(zoneViewModel)
                         //Message(zoneEventViewModel)
                         //ClientScreen() //viser borgere
                         //ClientScreen(clientViewModel = clientViewModel)
                         NavDemo()
                     } else {
-                        LoginSide(onUserLoggedIn)
+                        LoginView(onUserLoggedIn)
                     }
 
                 }
@@ -158,7 +160,7 @@ fun NavDemo() {
 
 @Composable
 fun NavDemoHost(navController: NavHostController) {
-    val clientViewModel= ClientScreenView(navController = navController ) //Zakir
+    val clientViewModel = ClientScreenView(navController = navController) //Zakir
     NavHost(
         navController = navController,
         startDestination = "ClientScreen"

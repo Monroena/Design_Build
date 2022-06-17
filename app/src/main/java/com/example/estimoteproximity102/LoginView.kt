@@ -20,15 +20,14 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 @Composable
-fun LoginSide(onUserLoggedIn: () -> Unit){
-
+fun LoginView(onUserLoggedIn: () -> Unit) {
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
-    ){
+    ) {
         val email = remember { mutableStateOf("") }
         val password = remember { mutableStateOf("") }
 
@@ -43,20 +42,25 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
         }
 
         Title()
-        Email(email, onEmailChanged)
+        Username(email, onEmailChanged)
         Password(password, onPasswordChanged)
         SignInButton(email, password, onUserLoggedIn)
     }
 }
-@Composable fun Title(){
+
+@Composable
+fun Title() {
     Text(
-       text = stringResource(R.string.sign_in_welcome_text)
-
-
+        text = stringResource(R.string.sign_in_welcome_text)
     )
 }
 
-@Composable fun SignInButton(username: MutableState<String>, password: MutableState<String>, onUserLoggedIn: () -> Unit){
+@Composable
+fun SignInButton(
+    username: MutableState<String>,
+    password: MutableState<String>,
+    onUserLoggedIn: () -> Unit
+) {
 //    var buttonColor = Color.Gray
 //    if (email.value == "hej"){
 //        buttonColor = Color.Green
@@ -67,9 +71,9 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
             Log.i("Staff", "Username value: " + username.value)
             Log.i("Staff", "Password value " + password.value)
             val db = Firebase.firestore
-            db.collection("staff").get().addOnSuccessListener{ result ->
+            db.collection("staff").get().addOnSuccessListener { result ->
                 for (document in result) {
-                    if (username.value == document.data["username"] && password.value == document.data["password"]){
+                    if (username.value == document.data["username"] && password.value == document.data["password"]) {
                         Log.i("Staff", "Virkede!")
                         onUserLoggedIn()
                     } else {
@@ -80,46 +84,50 @@ fun LoginSide(onUserLoggedIn: () -> Unit){
                     // Log.d("Staff", "${document.id} => ${document.data}")
                 }
             }
-            },
+        },
 
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(24.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Gray,
-            contentColor=Color.White
+            contentColor = Color.White
         )
     ) {
         Text(
-            text= stringResource(id = (R.string.sign_in))
+            text = stringResource(id = (R.string.sign_in))
         )
-        
+
     }
 }
-@Composable fun Password(password: MutableState<String>, onPasswordChanged: (String) -> Unit){
+
+@Composable
+fun Password(password: MutableState<String>, onPasswordChanged: (String) -> Unit) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = password.value, onValueChange = { onPasswordChanged(it) },
-        label = {Text(text= stringResource(R.string.password))},
-                colors=TextFieldDefaults.textFieldColors(
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent
-                ),
+        label = { Text(text = stringResource(R.string.password)) },
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
         shape = RoundedCornerShape(9.dp),
         visualTransformation = PasswordVisualTransformation()
     )
 }
-@Composable fun Email(email: MutableState<String>, onEmailChanged: (String) -> Unit){
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = email.value,
-            onValueChange = { onEmailChanged(it)},
-            label = {Text(text= stringResource(R.string.username))},
-            colors=TextFieldDefaults.textFieldColors(
-                focusedIndicatorColor = Color.Yellow,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            shape=RoundedCornerShape(12.dp),
-            keyboardOptions= KeyboardOptions(keyboardType = KeyboardType.Email)
-            )
 
-    }
+@Composable
+fun Username(username: MutableState<String>, onUsernameChanged: (String) -> Unit) {
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = username.value,
+        onValueChange = { onUsernameChanged(it) },
+        label = { Text(text = stringResource(R.string.username)) },
+        colors = TextFieldDefaults.textFieldColors(
+            focusedIndicatorColor = Color.Yellow,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
+        shape = RoundedCornerShape(12.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+    )
+
+}
