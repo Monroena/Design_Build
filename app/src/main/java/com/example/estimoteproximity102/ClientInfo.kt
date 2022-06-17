@@ -80,6 +80,7 @@ fun ClientInfoView(navController: NavController) {
                             contentDescription = "Nyt Notat"
                         )
                     },
+                    unselectedContentColor = Color.White,
                     selectedContentColor = Color.Gray,
                     onClick = { navController.navigate("NyNotat") },
                     selected = true
@@ -92,6 +93,7 @@ fun ClientInfoView(navController: NavController) {
                             contentDescription = "Tjek Ind"
                         )
                     },
+                    unselectedContentColor = Color.White,
                     selectedContentColor = Color.Gray,
                     onClick = { navController.navigate("TjekInd") },
                     selected = true
@@ -164,7 +166,7 @@ fun HomeScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White),
+            .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -188,14 +190,14 @@ fun HomeScreen() {
 */
             HentInfo()
         }
-    //}
+
 
 @Composable
 fun LogScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White),
+            .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -210,7 +212,7 @@ fun NotesScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White),
+            .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

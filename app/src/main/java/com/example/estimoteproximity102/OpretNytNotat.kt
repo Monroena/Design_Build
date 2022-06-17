@@ -2,6 +2,7 @@ package com.example.estimoteproximity102
 
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -31,7 +32,8 @@ fun OpretNyNotat(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp),
+            .padding(24.dp)
+            .background(color =  MaterialTheme.colors.background),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ){
         val notat = remember { mutableStateOf("") }
