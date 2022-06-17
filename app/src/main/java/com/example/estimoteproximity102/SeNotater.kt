@@ -8,15 +8,11 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.textInputServiceFactory
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.estimoteproximity102.Clients.Notes
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import kotlin.math.log
 
 private const val TAG = "PROXIMITY"
 
@@ -34,16 +30,15 @@ private const val TAG = "PROXIMITY"
                 notes.add(note)
             }
         }
-        val seNotat = remember { mutableStateOf("") }
+        val indtastetId = remember { mutableStateOf("") }
         val onSeNotatChanged = { newSeNotat: String ->
             //Test af opdatering af parentkomponentens state i log
             Log.i("Notes", "Parent state opdatering $newSeNotat")
-            seNotat.value = newSeNotat
+            indtastetId.value = newSeNotat
         }
-
         Title3()
-        IndtastID(seNotat, onSeNotatChanged)
-        SeNotatButton(seNotat, onNotesChanged)
+        IndtastID(indtastetId, onSeNotatChanged)
+        SeNotatButton(indtastetId, onNotesChanged)
         SeNotat(notes.toMutableStateList())
     }
 }
@@ -51,7 +46,7 @@ private const val TAG = "PROXIMITY"
 @Composable
 fun Title3(){
     Text(
-        text = stringResource(R.string.vis_notat),
+        text = stringResource(R.string.vis_notater),
 
     )
 }
@@ -61,7 +56,7 @@ fun IndtastID(seNotat: MutableState<String>, onSeNotatChanged: (String) -> Unit)
         modifier = Modifier.fillMaxWidth(),
         value = seNotat.value,
         onValueChange = { onSeNotatChanged(it) },
-        label = { Text(text = stringResource(R.string.input_tekst)) },
+        label = { Text(text = stringResource(R.string.indtast_beaconTag)) },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Gray,
             unfocusedIndicatorColor = Color.Transparent
@@ -82,22 +77,21 @@ fun SeNotat(seNotes: MutableList<String>){
 }
 
 @Composable
-fun SeNotatButton(seNotat: MutableState<String>, onNotesChanged: (ArrayList<String>) -> Unit) {
+fun SeNotatButton(indtastetId: MutableState<String>, onNotesChanged: (ArrayList<String>) -> Unit) {
     Button(
         onClick = {
-            Log.i("Clients", "Notat tekst: " + seNotat.value)
+            Log.i("Clients", "Notat tekst: " + indtastetId.value)
             val db = Firebase.firestore
-            val ID = seNotat.value
+            val iD = indtastetId.value
 
-            db.collection("Notes").whereEqualTo("beaconTag",ID)
+            db.collection("Notes").whereEqualTo("beaconTag",iD)
                 .get()
                 .addOnSuccessListener { result ->
                     val notater = ArrayList<String>()
 
-
                     Log.d(TAG, result.toString())
                     for (document in result) {
-                        notater.add(document.data.get("Notat").toString())
+                        notater.add(document.data.get("note").toString())
                     }
 
                     onNotesChanged(notater)
@@ -136,10 +130,6 @@ fun SeNotatButton(seNotat: MutableState<String>, onNotesChanged: (ArrayList<Stri
             text = stringResource(id = (R.string.se_notat))
         )
     }
-}
-
-fun logCatNote(){
-
 }
 
 

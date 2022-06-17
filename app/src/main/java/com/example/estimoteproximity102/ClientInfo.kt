@@ -13,7 +13,9 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.MailOutline
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,7 +36,6 @@ private const val TAG = "PROXIMITY"
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun ClientInfoView(navController: NavController) {
-
     val context = LocalContext.current
     val list = listOf(
         TabItem.Info,
@@ -170,8 +171,15 @@ fun HomeScreen() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        ClientInformation()
+        val info = remember {mutableListOf<String>().toMutableStateList()}
+        val onInfoChanged  = { newInfo: ArrayList<String> ->
+            info.clear()
+            for (inf in newInfo) {
+                info.add(inf)
+            }
+        }
+            HentInfo(onInfoChanged)
+            SeInfo(info.toMutableStateList())
 
     }
 }
@@ -188,7 +196,7 @@ fun HomeScreen() {
             Text(text = birthday.value)
             Text(text = adress.value)
 */
-            HentInfo()
+            //HentInfo()
         }
 
 
@@ -213,17 +221,14 @@ fun NotesScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.background),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
             SeNyNotat()
-            //OpretNyNotat()
-
         }
     }
 @Composable
-fun HentInfo(){
+fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit){
     Button(
         onClick = {
             Log.i("clients", "Info tekst: " + 515)
@@ -233,9 +238,16 @@ fun HentInfo(){
             db.collection("clients").whereEqualTo("beaconTag", ID)
                 .get()
                 .addOnSuccessListener { result ->
+                    val informationer = ArrayList<String>()
+
+                    Log.d(TAG, result.toString())
                     for (document in result) {
+                        informationer.add(document.data.get("name").toString())
                         Log.d(TAG, "${document.id} => ${document.data}")
                     }
+
+                    onInfoChanged(informationer)
+                    Log.d(TAG, informationer.toString())
                 }
                 .addOnFailureListener { exception ->
                     Log.d(TAG, "Error getting documents: ", exception)
@@ -252,6 +264,17 @@ fun HentInfo(){
             text = stringResource(id = (R.string.se_info))
         )
 
+    }
+}
+
+
+@Composable
+fun SeInfo(seInfo: MutableList<String>){
+    for (inf in seInfo){
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Borgers navn " +inf,
+        )
     }
 }
 
