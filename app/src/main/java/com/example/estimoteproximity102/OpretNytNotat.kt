@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.estimoteproximity102.R
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -45,7 +44,7 @@ fun OpretNyNotat(navController: NavController) {
 
         Title2()
         Notat(notat, onNotatChanged)
-        OpretNotatButton(notat, navController)
+        CreateNoteButton(notat, navController)
     }
 }
 
@@ -54,6 +53,7 @@ fun OpretNyNotat(navController: NavController) {
 fun Title2() {
     Text(
         text = stringResource(R.string.info),
+       // fontStyle =
     )
 }
 
@@ -76,15 +76,16 @@ fun Notat(notat: MutableState<String>, onNotatChanged: (String) -> Unit) {
 }
 
 @Composable
-fun OpretNotatButton(notat: MutableState<String>, navController: NavController) {
+fun CreateNoteButton(notat: MutableState<String>, navController: NavController) {
     Button(
         onClick = {
             navController.navigate("ClientInfo")
             Log.i("Notes", "Notat tekst: " + notat.value)
             val db = Firebase.firestore
-            val notatt = notat.value
+            val noteWrited = notat.value
             val notat = hashMapOf(
-                "Notat" to notatt
+                "note" to noteWrited,
+                "beaconTag" to "500"
             )
             db.collection("Notes")
                 .add(notat)

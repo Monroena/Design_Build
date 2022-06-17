@@ -35,6 +35,7 @@ fun ClientCard(
                     text = clients?.address ?: "",
                     modifier = Modifier.padding(all = 4.dp),
                     style = MaterialTheme.typography.body2
+
                 )
 
             }

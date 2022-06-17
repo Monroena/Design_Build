@@ -20,7 +20,7 @@ private const val TAG = "PROXIMITY"
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp),
+            .padding(30.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ){
         val notes = remember {mutableListOf<String>().toMutableStateList()}

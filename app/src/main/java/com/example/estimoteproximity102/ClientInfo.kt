@@ -243,6 +243,12 @@ fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit){
                     Log.d(TAG, result.toString())
                     for (document in result) {
                         informationer.add(document.data.get("name").toString())
+                        informationer.add(document.data.get("address").toString())
+                        informationer.add(document.data.get("birthdate").toString())
+                        informationer.add(document.data.get("beaconTag").toString())
+
+
+
                         Log.d(TAG, "${document.id} => ${document.data}")
                     }
 
@@ -273,7 +279,9 @@ fun SeInfo(seInfo: MutableList<String>){
     for (inf in seInfo){
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "Borgers navn " +inf,
+            text = inf,
+            //Text(
+            //    text = clients?.name ?: ""
         )
     }
 }
