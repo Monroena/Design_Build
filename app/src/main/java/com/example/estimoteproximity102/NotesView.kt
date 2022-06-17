@@ -16,17 +16,18 @@ import com.google.firebase.ktx.Firebase
 
 private const val TAG = "PROXIMITY"
 
-@Composable fun SeNyNotat(){
+@Composable
+fun SeNyNotat() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(30.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
-    ){
-        val notes = remember {mutableListOf<String>().toMutableStateList()}
-        val onNotesChanged  = { newNotes: ArrayList<String> ->
+    ) {
+        val notes = remember { mutableListOf<String>().toMutableStateList() }
+        val onNotesChanged = { newNotes: ArrayList<String> ->
             notes.clear()
-            for (note in newNotes){
+            for (note in newNotes) {
                 notes.add(note)
             }
         }
@@ -42,14 +43,16 @@ private const val TAG = "PROXIMITY"
         SeNotat(notes.toMutableStateList())
     }
 }
+
 //stateless
 @Composable
-fun Title3(){
+fun Title3() {
     Text(
         text = stringResource(R.string.vis_notater),
 
-    )
+        )
 }
+
 @Composable
 fun IndtastID(seNotat: MutableState<String>, onSeNotatChanged: (String) -> Unit) {
     TextField(
@@ -65,10 +68,11 @@ fun IndtastID(seNotat: MutableState<String>, onSeNotatChanged: (String) -> Unit)
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
     )
 }
+
 @Composable
-fun SeNotat(seNotes: MutableList<String>){
+fun SeNotat(seNotes: MutableList<String>) {
     Log.d("HEEY", seNotes.toString())
-    for (note in seNotes){
+    for (note in seNotes) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = note,
@@ -84,7 +88,7 @@ fun SeNotatButton(indtastetId: MutableState<String>, onNotesChanged: (ArrayList<
             val db = Firebase.firestore
             val iD = indtastetId.value
 
-            db.collection("Notes").whereEqualTo("beaconTag",iD)
+            db.collection("Notes").whereEqualTo("beaconTag", iD)
                 .get()
                 .addOnSuccessListener { result ->
                     val notater = ArrayList<String>()
@@ -102,22 +106,22 @@ fun SeNotatButton(indtastetId: MutableState<String>, onNotesChanged: (ArrayList<
                 }
 
             //*/
-                //Følgende kode virker således at ud fra et bestemt indtastede document-ID hentes info fra en bestemt refDoc.
-                /*
-                    val docRef = db.collection("Notes").document("6PR953um57HDlv5tEK82")
-                    docRef.get()
-                        .addOnSuccessListener { document ->
-                            if (document != null && ID == document.data?.get("beaconTag") ?: ID) {
-                                Log.d(TAG, "DocumentSnapshot data: ${document.data}")
-                            } else {
-                                Log.d(TAG, "No such document")
-                            }
+            //Følgende kode virker således at ud fra et bestemt indtastede document-ID hentes info fra en bestemt refDoc.
+            /*
+                val docRef = db.collection("Notes").document("6PR953um57HDlv5tEK82")
+                docRef.get()
+                    .addOnSuccessListener { document ->
+                        if (document != null && ID == document.data?.get("beaconTag") ?: ID) {
+                            Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                        } else {
+                            Log.d(TAG, "No such document")
                         }
-                        .addOnFailureListener { exception ->
-                            Log.d(TAG, "get failed with ", exception)
-                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d(TAG, "get failed with ", exception)
+                    }
 
-                 */
+             */
         },
         modifier = Modifier.fillMaxWidth(),
         contentPadding = PaddingValues(24.dp),

@@ -23,12 +23,12 @@ import com.google.firebase.ktx.Firebase
 private const val TAG = "PROXIMITY"
 
 @Composable
-fun OpretNotatView(navController: NavController) {
-    OpretNyNotat(navController)
+fun CreateNoteView(navController: NavController) {
+    CreateNote(navController)
 }
 
 @Composable
-fun OpretNyNotat(navController: NavController) {
+fun CreateNote(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
