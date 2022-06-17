@@ -32,7 +32,6 @@ fun OpretNyNotat(navController: NavController){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp)
             .background(color =  MaterialTheme.colors.background),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ){
