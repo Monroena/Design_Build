@@ -24,9 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
@@ -37,10 +39,12 @@ import com.example.estimoteproximity102.Beacons.ZoneName
 import com.example.estimoteproximity102.Clients.ClientScreen
 import com.example.estimoteproximity102.Clients.ClientScreenView
 import com.example.estimoteproximity102.Clients.ClientViewModel
+import com.example.estimoteproximity102.Clients.Clients
 import com.example.estimoteproximity102.core.Constants
 
 import com.example.estimoteproximity102.ui.theme.EstimoteProximity102Theme
 import com.example.estimoteproximity102.ui.theme.LoginSide
+import com.google.gson.Gson
 
 private const val TAG = "PROXIMITY"
 
@@ -137,7 +141,7 @@ class MainActivity : ComponentActivity() {
             }
             .onContextChange {
                 Log.d(TAG, "Change: ${it}")
-            zoneViewModel.updateZoneContexts(it)
+                zoneViewModel.updateZoneContexts(it)
             }
             .build()
 
@@ -167,21 +171,24 @@ fun NavDemo() {
     val navController = rememberNavController()
     NavDemoHost(navController)
 }
-
 @Composable
 fun ClientScreenView2(navController: NavController) {
     val clientViewModel= ClientScreenView(navController = navController )
 }
+
+
+
+
 @Composable
 fun NavDemoHost(navController: NavHostController) {
-  val clientViewModel= ClientScreenView(navController = navController ) //Zakir
+    val clientViewModel= ClientScreenView(navController = navController ) //Zakir
     NavHost(
         navController = navController,
         startDestination = "ClientScreen"
     ) {
         composable("ClientScreen") {
-        clientViewModel
-        //ClientScreenView2(navController = navController)
+            clientViewModel
+            //ClientScreenView2(navController = navController)
 
         }
         composable("ClientInfo") {

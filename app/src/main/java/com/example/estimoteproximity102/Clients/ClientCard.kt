@@ -3,6 +3,7 @@ package com.example.estimoteproximity102.Clients
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,9 +18,12 @@ fun ClientCard(
     clients: Clients,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = Modifier.padding(all = 8.dp)) {
-        Button(modifier = Modifier.fillMaxWidth()
-            .background(color = Color.Gray),
+    Row(modifier = Modifier.padding(all = 5.dp)) {
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color= Color.Transparent),
+
             onClick = { navController.navigate("ClientInfo") }) {
 
             Column() {

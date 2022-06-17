@@ -1,41 +1,37 @@
 package com.example.estimoteproximity102.Clients
 
-import android.service.autofill.OnClickAction
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-/*
 @Composable
 fun ClientScreenView(navController: NavController){
-    ClientScreen(navController=navController)
-}*/
+
+    //val clientViewModel= ClientScreen(navController = navController )
+    ClientScreen(navController =navController)
+}
 
 @Composable
 fun ClientScreen(
     clientViewModel: ClientViewModel = viewModel(),
     navController: NavController
 ) {
+
     Column{
         Row{
 
-            Text("${clientViewModel.clientRepository.clients.size}",)
+            Text("${clientViewModel.clientRepository.clients.size}")
             Spacer(modifier = Modifier
-                .width(45.dp)
+                .width(200.dp)
                 .padding(vertical = 16.dp, horizontal = 45.dp)
+                .background(Color.Black)
+
             )
         }
 
@@ -45,18 +41,8 @@ fun ClientScreen(
             list = clientViewModel.clientRepository.clients
         )
 
-        Button(onClick = { navController.navigate("ClientInfo")}) {
-            Text(text = "Til ClientInfo - Borger side")
-
-
-        }
-
-
-
 
 }}
-
-
 
 
 
