@@ -209,9 +209,9 @@ fun LogScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        Text(text = "Log Screen")
-        Text(text = "Vis log fra firebase her")
+        SeLog()
+//        Text(text = "Log Screen")
+//        Text(text = "Vis log fra firebase her")
     }
 }
 
