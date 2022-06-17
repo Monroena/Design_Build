@@ -7,4 +7,6 @@ object Constants {
     const val CLIENTS = "clients"
 
     const val FIREBASETAG = "Firebase"
+
+    const val NOTES = "Notes"
 }
