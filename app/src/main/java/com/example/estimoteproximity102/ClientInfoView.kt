@@ -225,7 +225,7 @@ fun NotesScreen() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SeNyNotat()
+        ViewNotes()
     }
 }
 

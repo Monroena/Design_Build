@@ -28,12 +28,12 @@ fun LoginView(onUserLoggedIn: () -> Unit) {
             .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        val email = remember { mutableStateOf("") }
+        val username = remember { mutableStateOf("") }
         val password = remember { mutableStateOf("") }
 
-        val onEmailChanged = { newEmail: String ->
+        val onUsernameChanged = { newEmail: String ->
             Log.i("Staff", "Parent state opdatering $newEmail")
-            email.value = newEmail
+            username.value = newEmail
         }
 
         val onPasswordChanged = { newPassword: String ->
@@ -41,15 +41,15 @@ fun LoginView(onUserLoggedIn: () -> Unit) {
             password.value = newPassword
         }
 
-        Title()
-        Username(email, onEmailChanged)
+        WelcomeText()
+        Username(username, onUsernameChanged)
         Password(password, onPasswordChanged)
-        SignInButton(email, password, onUserLoggedIn)
+        SignInButton(username, password, onUserLoggedIn)
     }
 }
 
 @Composable
-fun Title() {
+fun WelcomeText() {
     Text(
         text = stringResource(R.string.sign_in_welcome_text)
     )

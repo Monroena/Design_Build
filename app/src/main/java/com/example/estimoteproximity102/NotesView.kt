@@ -17,7 +17,7 @@ import com.google.firebase.ktx.Firebase
 private const val TAG = "PROXIMITY"
 
 @Composable
-fun SeNyNotat() {
+fun ViewNotes() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,8 +37,8 @@ fun SeNyNotat() {
             Log.i("Notes", "Parent state opdatering $newSeNotat")
             indtastetId.value = newSeNotat
         }
-        Title3()
-        IndtastID(indtastetId, onSeNotatChanged)
+        NoteIntroduction()
+        InputId(indtastetId, onSeNotatChanged)
         SeNotatButton(indtastetId, onNotesChanged)
         SeNotat(notes.toMutableStateList())
     }
@@ -46,20 +46,19 @@ fun SeNyNotat() {
 
 //stateless
 @Composable
-fun Title3() {
+fun NoteIntroduction() {
     Text(
-        text = stringResource(R.string.vis_notater),
-
+        text = stringResource(R.string.show_note),
         )
 }
 
 @Composable
-fun IndtastID(seNotat: MutableState<String>, onSeNotatChanged: (String) -> Unit) {
+fun InputId(seNotat: MutableState<String>, onSeNotatChanged: (String) -> Unit) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = seNotat.value,
         onValueChange = { onSeNotatChanged(it) },
-        label = { Text(text = stringResource(R.string.indtast_beaconTag)) },
+        label = { Text(text = stringResource(R.string.input_beaconTag)) },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Gray,
             unfocusedIndicatorColor = Color.Transparent
@@ -81,25 +80,25 @@ fun SeNotat(seNotes: MutableList<String>) {
 }
 
 @Composable
-fun SeNotatButton(indtastetId: MutableState<String>, onNotesChanged: (ArrayList<String>) -> Unit) {
+fun SeNotatButton(inputId: MutableState<String>, onNotesChanged: (ArrayList<String>) -> Unit) {
     Button(
         onClick = {
-            Log.i("Clients", "Notat tekst: " + indtastetId.value)
+            Log.i("Clients", "Notat tekst: " + inputId.value)
             val db = Firebase.firestore
-            val iD = indtastetId.value
+            val id = inputId.value
 
-            db.collection("Notes").whereEqualTo("beaconTag", iD)
+            db.collection("Notes").whereEqualTo("beaconTag", id)
                 .get()
                 .addOnSuccessListener { result ->
-                    val notater = ArrayList<String>()
+                    val notes = ArrayList<String>()
 
                     Log.d(TAG, result.toString())
                     for (document in result) {
-                        notater.add(document.data.get("note").toString())
+                        notes.add(document.data["note"].toString())
                     }
 
-                    onNotesChanged(notater)
-                    Log.d(TAG, notater.toString())
+                    onNotesChanged(notes)
+                    Log.d(TAG, notes.toString())
                 }
                 .addOnFailureListener { exception ->
                     Log.d(TAG, "Error getting documents: ", exception)

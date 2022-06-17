@@ -18,6 +18,6 @@
     <string name="se_notat">Se notater</string>
     <string name="input_tekst">Indtast ID</string>
     <string name="se_info">Se informationer om borger</string>
-    <string name="indtast_beaconTag">Indtast et beaconTag</string>
-    <string name="vis_notater">Vis notater ud fra borgerens beaconTag</string>
+    <string name="input_beaconTag">Indtast et beaconTag</string>
+    <string name="show_note">Vis notater ud fra borgerens beaconTag</string>
 </resources>
