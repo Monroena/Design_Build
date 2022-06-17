@@ -81,7 +81,7 @@ fun ClientInfoView(navController: NavController) {
                         )
                     },
                     unselectedContentColor = Color.White,
-                    selectedContentColor = Color.Gray,
+                    selectedContentColor = Color.White,
                     onClick = { navController.navigate("NyNotat") },
                     selected = true
                 )
@@ -94,7 +94,7 @@ fun ClientInfoView(navController: NavController) {
                         )
                     },
                     unselectedContentColor = Color.White,
-                    selectedContentColor = Color.Gray,
+                    selectedContentColor = Color.White,
                     onClick = { navController.navigate("TjekInd") },
                     selected = true
                 )
