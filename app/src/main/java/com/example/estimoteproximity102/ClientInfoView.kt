@@ -31,7 +31,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
-private const val TAG = "PROXIMITY"
+//private const val TAG = "PROXIMITY"
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -78,13 +78,14 @@ fun ClientInfoView(navController: NavController) {
                     icon = {
                         Icon(
                             imageVector = Icons.Outlined.MailOutline,
-                            contentDescription = "Nyt Notat"
+                            contentDescription = "Nyt Notat",
                         )
                     },
+                    label = { Text(text = "Opret Notat")},
                     unselectedContentColor = Color.White,
-                    selectedContentColor = Color.White,
+                    selectedContentColor = Color.Gray,
                     onClick = { navController.navigate("CreateNote") },
-                    selected = true
+                    selected = false
                 )
 
                 BottomNavigationItem(
@@ -94,10 +95,11 @@ fun ClientInfoView(navController: NavController) {
                             contentDescription = "Tjek Ind"
                         )
                     },
+                    label = { Text(text = "Tjek ind")},
                     unselectedContentColor = Color.White,
-                    selectedContentColor = Color.White,
+                    selectedContentColor = Color.Gray,
                     onClick = { navController.navigate("CheckIn") },
-                    selected = true
+                    selected = false
                 )
 
             }
@@ -228,7 +230,7 @@ fun NotesScreen() {
         ViewNotes()
     }
 }
-
+/*
 @Composable
 fun HentInfo(onInfoChanged: (ArrayList<String>) -> Unit) {
     Button(
@@ -287,6 +289,8 @@ fun SeInfo(seInfo: MutableList<String>) {
         )
     }
 }
+
+ */
 
 @Preview(showBackground = true)
 @Composable

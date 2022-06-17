@@ -34,9 +34,9 @@ fun CheckIn(navController: NavController) {
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         val context = LocalContext.current
-        val visitorNavn = remember { mutableStateOf("") }
-        val onVisitorNavnChanged = { newVisitorNavn: String ->
-            visitorNavn.value = newVisitorNavn
+        val visitorName = remember { mutableStateOf("") }
+        val onVisitorNameChanged = { newVisitorName: String ->
+            visitorName.value = newVisitorName
         }
         Text(
             text = "Borgerens navn"
@@ -45,8 +45,8 @@ fun CheckIn(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(24.dp),
-            value = visitorNavn.value,
-            onValueChange = { onVisitorNavnChanged(it) },
+            value = visitorName.value,
+            onValueChange = { onVisitorNameChanged(it) },
             label = { Text(text = "Brugernavn") },
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.Gray,
@@ -61,7 +61,7 @@ fun CheckIn(navController: NavController) {
                 Toast.makeText(context, "Du er tjekket ind", Toast.LENGTH_LONG).show()
                 val db = Firebase.firestore
                 val newVisit = hashMapOf(
-                    "Name" to visitorNavn.value,
+                    "Name" to visitorName.value,
                     "Timestamp" to
                             DateTimeFormatter
                                 .ofPattern("dd-MM-yyyy HH:mm:ss")
@@ -87,7 +87,7 @@ fun CheckIn(navController: NavController) {
             )
         ) {
             Text(
-                text = stringResource(id = (R.string.tjek_ind))
+                text = stringResource(id = (R.string.check_in))
             )
         }
     }
