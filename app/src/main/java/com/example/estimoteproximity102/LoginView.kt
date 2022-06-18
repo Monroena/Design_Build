@@ -32,12 +32,12 @@ fun LoginView(onUserLoggedIn: () -> Unit) {
         val password = remember { mutableStateOf("") }
 
         val onUsernameChanged = { newEmail: String ->
-            Log.i("Staff", "Parent state opdatering $newEmail")
+            Log.i("staff", "Parent state update $newEmail")
             username.value = newEmail
         }
 
         val onPasswordChanged = { newPassword: String ->
-            Log.i("Staff", "Parent state update $newPassword")
+            Log.i("staff", "Parent state update $newPassword")
             password.value = newPassword
         }
 
@@ -65,7 +65,6 @@ fun SignInButton(
 //    if (email.value == "hej"){
 //        buttonColor = Color.Green
 //    }
-
     Button(
         onClick = {
             Log.i("Staff", "Username value: " + username.value)
@@ -74,13 +73,13 @@ fun SignInButton(
             db.collection("staff").get().addOnSuccessListener { result ->
                 for (document in result) {
                     if (username.value == document.data["username"] && password.value == document.data["password"]) {
-                        Log.i("Staff", "Virkede!")
+                        Log.i("Staff", "Input matchede noget i databasen!")
                         onUserLoggedIn()
                     } else {
-                        Log.i("Staff", "Virkede ikke")
+                        Log.i("Staff", "Input matchede ikke det i databasen")
                     }
                     Log.i("Staff", document.data["username"].toString())
-                    Log.i("Staff", document.data["passwird"].toString())
+                    Log.i("Staff", document.data["password"].toString())
                     // Log.d("Staff", "${document.id} => ${document.data}")
                 }
             }

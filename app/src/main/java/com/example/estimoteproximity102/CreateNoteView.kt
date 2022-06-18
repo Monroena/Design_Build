@@ -1,6 +1,8 @@
 package com.example.estimoteproximity102
 
+
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -34,36 +37,35 @@ fun CreateNote(navController: NavController) {
             .background(color = MaterialTheme.colors.background),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        val notat = remember { mutableStateOf("") }
-        val onNotatChanged = { newNotat: String ->
-            //Test af opdatering af parentkomponentens state i log
-            Log.i("Staff", "Parent state opdatering $newNotat")
-            notat.value = newNotat
+        val note = remember { mutableStateOf("") }
+        val onNoteChanged = { newNote: String ->
+            //Test of update of parent-components state in log
+            Log.i("Staff", "Parent state opdatering $newNote")
+            note.value = newNote
         }
 
-        Title2()
-        Notat(notat, onNotatChanged)
-        CreateNoteButton(notat, navController)
+        CreateNoteTitle()
+        Note(note, onNoteChanged)
+        CreateNoteButton(note, navController)
     }
 }
 
 //stateless
 @Composable
-fun Title2() {
+fun CreateNoteTitle() {
     Text(
         text = stringResource(R.string.info),
-       // fontStyle =
     )
 }
 
 @Composable
-fun Notat(notat: MutableState<String>, onNotatChanged: (String) -> Unit) {
+fun Note(note: MutableState<String>, onNoteChanged: (String) -> Unit) {
     TextField(
         modifier = Modifier
             .fillMaxWidth()
             .padding(24.dp),
-        value = notat.value,
-        onValueChange = { onNotatChanged(it) },
+        value = note.value,
+        onValueChange = { onNoteChanged(it) },
         label = { Text(text = stringResource(R.string.notat)) },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Gray,
@@ -75,21 +77,30 @@ fun Notat(notat: MutableState<String>, onNotatChanged: (String) -> Unit) {
 }
 
 @Composable
-fun CreateNoteButton(notat: MutableState<String>, navController: NavController) {
+fun CreateNoteButton(note: MutableState<String>, navController: NavController) {
+    val context = LocalContext.current
     Button(
         onClick = {
             navController.navigate("ClientPage")
-            Log.i("Notes", "Notat tekst: " + notat.value)
+            Log.i("notes", "Note text: " + note.value)
+
             val db = Firebase.firestore
-            val noteWrited = notat.value
-            val note = hashMapOf(
-                "note" to noteWrited,
-                "beaconTag" to "500"
+            val inputNote = note.value
+            val noteInfo = hashMapOf(
+                "note" to inputNote,
+                "beaconTag" to "510",
+                "name" to "Grethe Hansen"
             )
-            db.collection("Notes")
-                .add(note)
+            db.collection("notes")
+                .add(noteInfo)
                 .addOnSuccessListener { documentReference ->
                     Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
+
+                    Toast.makeText(
+                        context,
+                        "Oprettet et notat",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 .addOnFailureListener { e ->
                     Log.w(TAG, "Error adding document", e)

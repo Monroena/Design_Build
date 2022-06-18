@@ -21,28 +21,34 @@ private const val TAG = "PROXIMITY"
 fun GetClientData(onInfoChanged: (ArrayList<String>) -> Unit) {
     Button(
         onClick = {
-            Log.i("clients", "Info tekst: " + 515)
             val db = Firebase.firestore
-            val id = "515"
+            val beaconTag = "515"
 
-            db.collection("clients").whereEqualTo("beaconTag", id)
+            db.collection("clients").whereEqualTo("beaconTag", beaconTag)
                 .get()
                 .addOnSuccessListener { result ->
-                    val informationer = ArrayList<String>()
+                    val information = ArrayList<String>()
 
                     Log.d(TAG, result.toString())
                     for (document in result) {
-                        informationer.add(document.data["name"].toString())
-                        informationer.add(document.data["address"].toString())
-                        informationer.add(document.data["birthdate"].toString())
-                        informationer.add(document.data["beaconTag"].toString())
-
+                        information.add("Borger navn: ")
+                        information.add(document.data["name"].toString())
+                        information.add("Køn: ")
+                        information.add(document.data["køn"].toString())
+                        information.add("Diagnose: ")
+                        information.add(document.data["diagnose"].toString())
+                        information.add("Fødselsdag: ")
+                        information.add(document.data["birthdate"].toString())
+                        information.add("Adresse: ")
+                        information.add(document.data["address"].toString())
+                        information.add("BeaconTag: ")
+                        information.add(document.data["beaconTag"].toString())
 
                         Log.d(TAG, "${document.id} => ${document.data}")
                     }
 
-                    onInfoChanged(informationer)
-                    Log.d(TAG, informationer.toString())
+                    onInfoChanged(information)
+                    Log.d(TAG, information.toString())
                 }
                 .addOnFailureListener { exception ->
                     Log.d(TAG, "Error getting documents: ", exception)

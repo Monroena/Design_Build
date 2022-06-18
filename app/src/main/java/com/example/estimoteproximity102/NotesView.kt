@@ -31,16 +31,15 @@ fun ViewNotes() {
                 notes.add(note)
             }
         }
-        val indtastetId = remember { mutableStateOf("") }
-        val onSeNotatChanged = { newSeNotat: String ->
-            //Test af opdatering af parentkomponentens state i log
-            Log.i("Notes", "Parent state opdatering $newSeNotat")
-            indtastetId.value = newSeNotat
+        val beaconTagInput = remember { mutableStateOf("") }
+        val onBeaconTagInputChanged = { newBeaconTagInput: String ->
+            Log.i("notes", "Parent state update $newBeaconTagInput")
+            beaconTagInput.value = newBeaconTagInput
         }
         NoteIntroduction()
-        InputId(indtastetId, onSeNotatChanged)
-        SeNotatButton(indtastetId, onNotesChanged)
-        SeNotat(notes.toMutableStateList())
+        BeaconTagInput(beaconTagInput, onBeaconTagInputChanged)
+        ViewNotesButton(beaconTagInput, onNotesChanged)
+        Notes(notes.toMutableStateList())
     }
 }
 
@@ -53,11 +52,11 @@ fun NoteIntroduction() {
 }
 
 @Composable
-fun InputId(seNotat: MutableState<String>, onSeNotatChanged: (String) -> Unit) {
+fun BeaconTagInput(beaconTagInput: MutableState<String>, onBeaconTagInputChanged: (String) -> Unit) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = seNotat.value,
-        onValueChange = { onSeNotatChanged(it) },
+        value = beaconTagInput.value,
+        onValueChange = { onBeaconTagInputChanged(it) },
         label = { Text(text = stringResource(R.string.input_beaconTag)) },
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Gray,
@@ -69,9 +68,9 @@ fun InputId(seNotat: MutableState<String>, onSeNotatChanged: (String) -> Unit) {
 }
 
 @Composable
-fun SeNotat(seNotes: MutableList<String>) {
-    Log.d("HEEY", seNotes.toString())
-    for (note in seNotes) {
+fun Notes(notes: MutableList<String>) {
+    Log.d("Document nr:", notes.toString())
+    for (note in notes) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = note,
@@ -80,14 +79,14 @@ fun SeNotat(seNotes: MutableList<String>) {
 }
 
 @Composable
-fun SeNotatButton(inputId: MutableState<String>, onNotesChanged: (ArrayList<String>) -> Unit) {
+fun ViewNotesButton(beaconTagInput: MutableState<String>, onNotesChanged: (ArrayList<String>) -> Unit) {
     Button(
         onClick = {
-            Log.i("Clients", "Notat tekst: " + inputId.value)
+            Log.i("Clients", "BeaconTag: " + beaconTagInput.value)
             val db = Firebase.firestore
-            val id = inputId.value
+            val beaconTag = beaconTagInput.value
 
-            db.collection("Notes").whereEqualTo("beaconTag", id)
+            db.collection("notes").whereEqualTo("beaconTag", beaconTag)
                 .get()
                 .addOnSuccessListener { result ->
                     val notes = ArrayList<String>()
