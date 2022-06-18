@@ -1,4 +1,4 @@
-package com.example.estimoteproximity102.Clients
+package com.example.estimoteproximity102
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.estimoteproximity102.ClientViewModel
 
 @Composable
 fun ClientListView(navController: NavController) {

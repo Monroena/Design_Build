@@ -14,8 +14,6 @@ import androidx.compose.ui.unit.dp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class InfoView {
-}
 
 private const val TAG = "PROXIMITY"
 
@@ -25,20 +23,19 @@ fun GetClientData(onInfoChanged: (ArrayList<String>) -> Unit) {
         onClick = {
             Log.i("clients", "Info tekst: " + 515)
             val db = Firebase.firestore
-            val ID = "515"
+            val id = "515"
 
-            db.collection("clients").whereEqualTo("beaconTag", ID)
+            db.collection("clients").whereEqualTo("beaconTag", id)
                 .get()
                 .addOnSuccessListener { result ->
                     val informationer = ArrayList<String>()
 
                     Log.d(TAG, result.toString())
                     for (document in result) {
-                        informationer.add(document.data.get("name").toString())
-                        informationer.add(document.data.get("address").toString())
-                        informationer.add(document.data.get("birthdate").toString())
-                        informationer.add(document.data.get("beaconTag").toString())
-
+                        informationer.add(document.data["name"].toString())
+                        informationer.add(document.data["address"].toString())
+                        informationer.add(document.data["birthdate"].toString())
+                        informationer.add(document.data["beaconTag"].toString())
 
 
                         Log.d(TAG, "${document.id} => ${document.data}")

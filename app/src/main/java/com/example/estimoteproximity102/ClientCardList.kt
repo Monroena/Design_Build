@@ -1,4 +1,4 @@
-package com.example.estimoteproximity102.Clients
+package com.example.estimoteproximity102
 
 import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn

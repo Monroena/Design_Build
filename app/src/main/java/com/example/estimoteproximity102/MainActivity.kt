@@ -9,13 +9,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,7 +20,6 @@ import androidx.navigation.compose.rememberNavController
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
-import com.example.estimoteproximity102.Clients.ClientListView
 import com.example.estimoteproximity102.dto.CloudCredentials.APP_ID
 import com.example.estimoteproximity102.dto.CloudCredentials.APP_TOKEN
 import com.example.estimoteproximity102.dto.FirebaseConstants
@@ -43,7 +39,7 @@ class MainActivity : ComponentActivity() {
     )
 
     private val clientViewModel by viewModels<ClientViewModel>()
-    val zoneViewModel by viewModels<ZoneEventViewModel>()
+    private val zoneViewModel by viewModels<ZoneEventViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,13 +58,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
-
                     if (userLoggedIn.value) {
-                        //Message(zoneViewModel)
-                        //Message(zoneEventViewModel)
-                        //ClientScreen() //viser borgere
-                        //ClientScreen(clientViewModel = clientViewModel)
                         NavDemo()
                     } else {
                         LoginView(onUserLoggedIn)
@@ -126,7 +116,7 @@ class MainActivity : ComponentActivity() {
 
             }
             .onContextChange {
-                Log.d(TAG, "Change: ${it}")
+                Log.d(TAG, "Change: $it")
                 zoneViewModel.updateZoneContexts(it)
             }
             .build()
@@ -160,7 +150,7 @@ fun NavDemo() {
 
 @Composable
 fun NavDemoHost(navController: NavHostController) {
-    val clientViewModel = ClientListView(navController = navController) //Zakir
+    val clientViewModel = ClientListView(navController = navController) //lappeløsning fordi generel metode ikke virker
     NavHost(
         navController = navController,
         startDestination = "ClientList"
@@ -178,20 +168,5 @@ fun NavDemoHost(navController: NavHostController) {
         composable("CheckIn") {
             CheckIn(navController = navController)
         }
-    }
-}
-
-
-@Composable
-fun Message(zoneEventViewModel: ZoneEventViewModel) {
-    Text(text = zoneEventViewModel.tag, fontSize = 40.sp)
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    EstimoteProximity102Theme {
-
     }
 }

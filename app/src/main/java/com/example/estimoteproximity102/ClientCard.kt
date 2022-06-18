@@ -1,4 +1,4 @@
-package com.example.estimoteproximity102.Clients
+package com.example.estimoteproximity102
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,7 +25,7 @@ fun ClientCard(
 
             onClick = { navController.navigate("ClientPage") }) {
 
-            Column() {
+            Column {
                 Text(
                     text = clients.name ?: ""
                 )

@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.example.estimoteproximity102.dto.TabItem
@@ -43,7 +44,7 @@ fun ClientPageView(navController: NavController) {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "QuickJournal")
+                    Text(text = stringResource(id = (R.string.app_name)))
                 },
                 navigationIcon = {
                     IconButton(onClick = {
@@ -59,7 +60,8 @@ fun ClientPageView(navController: NavController) {
                             contentDescription = "Back"
                         )
                     }
-                }
+                },
+
             )
         },
         isFloatingActionButtonDocked = true,
@@ -208,7 +210,7 @@ fun NotesScreen() {
         ViewNotes()
     }
 }
-
+ //flyttet nedenstående til seperat fil: InfoView.kt
 /*
 @Composable
 fun ClientInformation() {
