@@ -21,8 +21,8 @@ fun ViewNotes() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(30.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(10.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         val notes = remember { mutableListOf<String>().toMutableStateList() }
         val onNotesChanged = { newNotes: ArrayList<String> ->

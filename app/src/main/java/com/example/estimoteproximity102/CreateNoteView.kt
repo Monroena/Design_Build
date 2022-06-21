@@ -12,12 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -35,7 +37,7 @@ fun CreateNote(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(color = MaterialTheme.colors.background),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
         val note = remember { mutableStateOf("") }
         val onNoteChanged = { newNote: String ->
@@ -53,9 +55,8 @@ fun CreateNote(navController: NavController) {
 //stateless
 @Composable
 fun CreateNoteTitle() {
-    Text(
-        text = stringResource(R.string.info),
-    )
+    //Text("Indtast et notat i følgende felt",color = Color(0, 400, 400), fontSize = 30.sp, modifier = Modifier.padding(8.dp) )
+    Text("Indtast et notat i følgende felt",color = Color(0xFF3CB8AC), fontSize = 26.sp, modifier = Modifier.padding(8.dp))
 }
 
 @Composable
@@ -63,7 +64,7 @@ fun Note(note: MutableState<String>, onNoteChanged: (String) -> Unit) {
     TextField(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp),
+            .padding(10.dp),
         value = note.value,
         onValueChange = { onNoteChanged(it) },
         label = { Text(text = stringResource(R.string.notat)) },
@@ -71,7 +72,7 @@ fun Note(note: MutableState<String>, onNoteChanged: (String) -> Unit) {
             focusedIndicatorColor = Color.Gray,
             unfocusedIndicatorColor = Color.Transparent
         ),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(2.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
     )
 }
@@ -83,7 +84,6 @@ fun CreateNoteButton(note: MutableState<String>, navController: NavController) {
         onClick = {
             navController.navigate("ClientPage")
             Log.i("notes", "Note text: " + note.value)
-
             val db = Firebase.firestore
             val inputNote = note.value
             val noteInfo = hashMapOf(
@@ -95,10 +95,9 @@ fun CreateNoteButton(note: MutableState<String>, navController: NavController) {
                 .add(noteInfo)
                 .addOnSuccessListener { documentReference ->
                     Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
-
                     Toast.makeText(
                         context,
-                        "Oprettet et notat",
+                        "Notat oprettet",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -110,6 +109,7 @@ fun CreateNoteButton(note: MutableState<String>, navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(24.dp),
+        shape = RoundedCornerShape(12.dp),
         contentPadding = PaddingValues(24.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Gray,
