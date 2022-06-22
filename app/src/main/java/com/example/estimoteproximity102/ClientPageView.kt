@@ -51,7 +51,7 @@ fun ClientPageView(navController: NavController) {
                         navController.navigate("ClientList")
                         Toast.makeText(
                             context,
-                            "tilbage til listevisning af borgere",
+                            "Tilbage til listevisning af borgere",
                             Toast.LENGTH_LONG
                         ).show()
                     }) {

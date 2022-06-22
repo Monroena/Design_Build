@@ -1,6 +1,7 @@
 package com.example.estimoteproximity102.ui.theme
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,10 +12,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.estimoteproximity102.R
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -50,9 +53,8 @@ fun LoginView(onUserLoggedIn: () -> Unit) {
 
 @Composable
 fun WelcomeText() {
-    Text(
-        text = stringResource(R.string.sign_in_welcome_text)
-    )
+    Text("Velkommen til QuickJournal!",color = Color(0xFF3CB8AC), fontSize = 26.sp, modifier = Modifier.padding(8.dp))
+
 }
 
 @Composable
@@ -65,8 +67,10 @@ fun SignInButton(
 //    if (email.value == "hej"){
 //        buttonColor = Color.Green
 //    }
+    val context = LocalContext.current
     Button(
         onClick = {
+
             Log.i("Staff", "Username value: " + username.value)
             Log.i("Staff", "Password value " + password.value)
             val db = Firebase.firestore
@@ -75,6 +79,19 @@ fun SignInButton(
                     if (username.value == document.data["username"] && password.value == document.data["password"]) {
                         Log.i("Staff", "Input matchede noget i databasen!")
                         onUserLoggedIn()
+                        Toast.makeText(
+                            context,
+                            "Du logges ind",
+                            Toast.LENGTH_LONG
+                            ).show()
+                    }
+                            else if(username.value != document.data["username"] && password.value != document.data["password"]){
+                        //Toast.makeText(
+                        //   context,
+                         //   "Bruger ikke fundet i systemet",
+                        //    Toast.LENGTH_LONG
+                        //).show()
+
                     } else {
                         Log.i("Staff", "Input matchede ikke det i databasen")
                     }
