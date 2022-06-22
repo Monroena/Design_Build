@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.estimoteproximity102">
+    package="com.example.QuickJournal">
 
     <uses-permission android:name="android.permission.CAMERA"/>
     <application
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EstimoteProximity102">
         <activity
-            android:name="com.example.estimoteproximity102.MainActivity"
+            android:name="com.example.QuickJournal.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.EstimoteProximity102">
             <intent-filter>
