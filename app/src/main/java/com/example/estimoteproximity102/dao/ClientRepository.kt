@@ -8,8 +8,5 @@ interface ClientRepository {
     fun getClients(clientID: String)
 
     fun addListener()
-
-
-
 }
 
