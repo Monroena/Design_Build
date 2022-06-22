@@ -88,7 +88,7 @@ fun CreateNoteButton(note: MutableState<String>, navController: NavController) {
             val inputNote = note.value
             val noteInfo = hashMapOf(
                 "note" to inputNote,
-                "beaconTag" to "510",
+                "beaconTag" to "517",
                 "name" to "Grethe Hansen"
             )
             db.collection("notes")

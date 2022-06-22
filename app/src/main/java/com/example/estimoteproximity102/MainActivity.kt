@@ -157,7 +157,7 @@ fun NavDemoHost(navController: NavHostController) {
     ) {
         composable("ClientList") {
             clientViewModel
-            //ClientScreenView(navController = navController)
+           //ClientListView(navController = navController)
         }
         composable("ClientPage") {
             ClientPageView(navController = navController)
