@@ -1,4 +1,4 @@
-package com.example.QuickJournal.dto
+package com.example.QuickJournal.Views
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle

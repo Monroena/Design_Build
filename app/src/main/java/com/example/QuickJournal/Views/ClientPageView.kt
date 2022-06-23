@@ -22,7 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import com.example.QuickJournal.dto.TabItem
+import com.example.QuickJournal.Views.TabItem
 import com.example.QuickJournal.ui.theme.EstimoteProximity102Theme
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
