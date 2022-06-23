@@ -17,7 +17,7 @@ class ClientRepositoryFirestore : ClientRepository {
         docRef.whereEqualTo(FirebaseConstants.ZONETAG, clientID)
             .get().addOnSuccessListener { documents ->
 
-                //clients.clear()
+              //  clients.clear()
                 clients.addAll(documents.toObjects(Clients::class.java).toMutableStateList())
 
                 logClients("getClients")

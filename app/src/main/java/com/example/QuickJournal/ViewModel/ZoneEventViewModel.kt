@@ -1,4 +1,4 @@
-package com.example.QuickJournal
+package com.example.QuickJournal.ViewModel
 
 import android.util.Log
 import androidx.compose.runtime.getValue

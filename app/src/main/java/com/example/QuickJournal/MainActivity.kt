@@ -20,6 +20,12 @@ import androidx.navigation.compose.rememberNavController
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.Requirement
 import com.estimote.mustard.rx_goodness.rx_requirements_wizard.RequirementsWizardFactory
 import com.estimote.proximity_sdk.api.*
+import com.example.QuickJournal.CheckIn
+import com.example.QuickJournal.ClientListView
+import com.example.QuickJournal.ClientPageView
+import com.example.QuickJournal.CreateNoteView
+import com.example.QuickJournal.ViewModel.ClientViewModel
+import com.example.QuickJournal.ViewModel.ZoneEventViewModel
 import com.example.QuickJournal.dto.CloudCredentials.APP_ID
 import com.example.QuickJournal.dto.CloudCredentials.APP_TOKEN
 import com.example.QuickJournal.dto.FirebaseConstants
@@ -113,6 +119,7 @@ class MainActivity : ComponentActivity() {
             }
             .onExit {
                 Log.d(TAG, "Exit: ${it.tag}")
+
 
             }
             .onContextChange {
